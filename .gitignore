@@ -102,3 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Secrets
+secrets/ga-service-account-auth.json
+
+# Build
+build

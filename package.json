@@ -1,0 +1,39 @@
+{
+  "author": "Ole Kristian Fjaerestad",
+  "bugs": {
+    "url": "https://github.com/olefjaerestad/caniuse/issues"
+  },
+  "dependencies": {
+    "googleapis": "^66.0.0"
+  },
+  "description": "Check if you can use a certain CSS or JS feature on your site based on browser usage data from Google Analytics.",
+  "devDependencies": {
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-typescript": "^8.1.0",
+    "@types/node": "^14.14.14",
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.6",
+    "rollup": "^2.35.1",
+    "tslib": "^2.0.3",
+    "typescript": "^4.1.3"
+  },
+  "homepage": "https://github.com/olefjaerestad/caniuse#readme",
+  "keywords": [
+    "browsersupport",
+    "googleanalytics"
+  ],
+  "license": "MIT",
+  "main": "build/server/index.js",
+  "name": "caniuse",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olefjaerestad/caniuse.git"
+  },
+  "scripts": {
+    "build": "rollup --config",
+    "dev": "concurrently \"tsc -w -p tsconfig.dev.json\" \"nodemon scripts/dev.js\"",
+    "start": "node scripts/prod.js",
+    "test": "test"
+  },
+  "version": "0.0.1"
+}
