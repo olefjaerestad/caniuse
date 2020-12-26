@@ -1,0 +1,7 @@
+{
+  "googleAnalytics": {
+    "yourdomain.com": { // Your domain here. You can add multiple domains by adding more objects.
+      "viewId": "1" // Your GA viewId here.
+    }
+  }
+}
