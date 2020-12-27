@@ -4,11 +4,13 @@
     "url": "https://github.com/olefjaerestad/caniuse/issues"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "googleapis": "^66.0.0"
   },
   "description": "Check if you can use a certain CSS or JS feature on your site based on browser usage data from Google Analytics.",
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.1.0",
+    "@types/express": "^4.17.9",
     "@types/node": "^14.14.14",
     "concurrently": "^5.3.0",
     "nodemon": "^2.0.6",

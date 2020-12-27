@@ -1,30 +1,28 @@
-// import util from 'util';
 import { authorize } from './google-analytics/auth';
-// import { filterBrowserUsageData, formatBrowserUsageData, getBrowserUsageData } from './google-analytics/data';
-// import { getConfig } from './util/config';
-// import { TBrowserUsageDataFilter } from './google-analytics/data-types';
+import express, { Express } from 'express';
+import { apiRoutes } from './routes/api-routes';
+import { indexRoutes } from './routes/index-routes';
 
-// const gaDomains = getConfig('googleAnalytics', 'domains');
-// const { viewId } = Object.values(gaDomains)[0];
-// const filters: TBrowserUsageDataFilter = {
-//   'Chrome': {
-//     minUsersPercentage: 15,
-//   },
-//   'Safari': {
-//     minUsersPercentage: 15,
-//   },
-//   'Firefox': {
-//     minUsersPercentage: 15,
-//   },
-// };
+type IRegisterRoutesFunction = (route: string, server: Express) => Express;
+interface IRoutes {
+  [route: string]: IRegisterRoutesFunction;
+}
+
+const routes: IRoutes = {
+  '': indexRoutes,
+  'api': apiRoutes,
+}
+
+const server = express();
+
+async function registerRoutes(server: Express, routes: IRoutes) {
+  Object.entries(routes).forEach(([route, callback]) => {
+    callback(route, server);
+  });
+}
 
 export async function app() {
   await authorize();
-  // const browserDataRaw = await getBrowserUsageData(viewId, 7); // TODO: Remove this when done testing?
-  // const browserDataFiltered = filterBrowserUsageData(browserDataRaw, filters);
-  // const browserData = formatBrowserUsageData(browserDataFiltered);
-  // console.log(util.inspect({browserDataRaw}, false, null));
-  // console.log(util.inspect({browserDataFiltered}, false, null));
-  // console.log(util.inspect({browserData}, false, null));
-
+  await registerRoutes(server, routes);
+  server.listen('3000', () => console.log('Server listening at localhost:3000'));
 }
