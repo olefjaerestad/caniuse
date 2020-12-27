@@ -1,3 +1,3 @@
-const { app } = require('../dist/index.js');
+const { app } = require('../dist/server/index.js');
 
 app();

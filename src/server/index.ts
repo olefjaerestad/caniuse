@@ -2,6 +2,7 @@ import { authorize } from './google-analytics/auth';
 import express, { Express } from 'express';
 import { apiRoutes } from './routes/api-routes';
 import { indexRoutes } from './routes/index-routes';
+import { staticRoutes } from './routes/static-routes';
 
 type IRegisterRoutesFunction = (route: string, server: Express) => Express;
 interface IRoutes {
@@ -11,6 +12,7 @@ interface IRoutes {
 const routes: IRoutes = {
   '': indexRoutes,
   'api': apiRoutes,
+  'static': staticRoutes,
 }
 
 const server = express();
