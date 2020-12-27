@@ -8,7 +8,7 @@ const googleAnalytics = getConfig('googleAnalytics');
 const { viewId } = Object.values(googleAnalytics)[0];
 const filters: TBrowserUsageDataFilter = {
   'Chrome': {
-    minUsersPercentage: 20,
+    minUsersPercentage: 15,
   },
   'Safari': {
     minUsersPercentage: 15,
@@ -21,10 +21,10 @@ const filters: TBrowserUsageDataFilter = {
 export async function app() {
   await authorize();
   const browserDataRaw = await getBrowserUsageData(viewId, 7); // TODO: Remove this when done testing?
-  const browserData = formatBrowserUsageData(browserDataRaw);
-  const browserDataFiltered = filterBrowserUsageData(browserData, filters);
+  const browserDataFiltered = filterBrowserUsageData(browserDataRaw, filters);
+  const browserData = formatBrowserUsageData(browserDataFiltered);
   // console.log(util.inspect({browserDataRaw}, false, null));
+  // console.log(util.inspect({browserDataFiltered}, false, null));
   console.log(util.inspect({browserData}, false, null));
-  console.log(util.inspect({browserDataFiltered}, false, null));
 
 }

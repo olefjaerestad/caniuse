@@ -56,6 +56,46 @@ export async function getBrowserUsageData(viewId: string, days: number): Promise
 }
 
 /**
+ * Filter out browser usage data below specified filter thresholds.
+ * @param data 
+ * @param filters 
+ */
+export function filterBrowserUsageData(data: analyticsreporting_v4.Schema$GetReportsResponse, filters: TBrowserUsageDataFilter): analyticsreporting_v4.Schema$GetReportsResponse {
+  // const newData: analyticsreporting_v4.Schema$GetReportsResponse = JSON.parse(JSON.stringify(data));
+  const newData: analyticsreporting_v4.Schema$GetReportsResponse = {...data};
+  const totalUsers = Number(newData.reports[0].data.totals[0].values[0]);
+  // let minUsers: number | null = null;
+  // let maxUsers: number | null = null;
+
+  newData.reports[0].data.rows = newData.reports[0].data.rows.filter((row: analyticsreporting_v4.Schema$ReportRow) => {
+    const browser = row.dimensions[0];
+    const usersPercentage = Number(row.metrics[0].values[0]) / totalUsers * 100;
+    const minUsersPercentage = filters[browser] 
+      ? filters[browser].minUsersPercentage 
+      : Object.values(filters)[0].minUsersPercentage;
+
+    return usersPercentage >= minUsersPercentage;
+  });
+  // newData.reports[0].data.totals[0].values[0] = newData.reports[0].data.rows.reduce((acc: number, row) => {
+  //   const users = Number(row.metrics[0].values[0]);
+
+  //   if (maxUsers === null || users > maxUsers) {
+  //     maxUsers = users;
+  //   }
+  //   if (minUsers === null || users < minUsers) {
+  //     minUsers = users;
+  //   }
+
+  //   return acc + users;
+  // }, 0).toString();
+  // newData.reports[0].data.rowCount = newData.reports[0].data.rows.length;
+  // newData.reports[0].data.minimums[0].values[0] = minUsers.toString();
+  // newData.reports[0].data.maximums[0].values[0] = maxUsers.toString();
+
+  return newData;
+}
+
+/**
  * Format Google Analytics browser usage data for easier handling.
  * @param data 
  */
@@ -87,35 +127,4 @@ export function formatBrowserUsageData(data: analyticsreporting_v4.Schema$GetRep
   }, {});
 
   return res;
-}
-
-/**
- * Filter out browser usage data below specified filter thresholds.
- * @param data 
- * @param filters 
- */
-export function filterBrowserUsageData(data: TBrowserUsageData, filters: TBrowserUsageDataFilter): TBrowserUsageData {
-  return Object.entries(data).reduce((browsers: TBrowserUsageData, val: [string, TBrowserUsageData['Chrome']]) => {
-    const [browser, usageData] = val;
-    
-    usageData.versions.forEach((version: TBrowserUsageData['Chrome']['versions'][0]) => {
-      const minUsersPercentage = filters[browser] 
-        ? filters[browser].minUsersPercentage 
-        : Object.values(filters)[0].minUsersPercentage;
-
-      if (version.usersPercentage >= minUsersPercentage) {
-        if (!browsers[browser]) {
-          browsers[browser] = {
-            maxVersion: usageData.maxVersion,
-            minVersion: usageData.minVersion,
-            versions: [],
-          }
-        }
-
-        browsers[browser].versions.push(version);
-      }
-    });
-    
-    return browsers;
-  }, {});
 }
