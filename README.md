@@ -21,3 +21,10 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Src files (the files you actually edit) are located in `src`.
 - Dev files (used by dev server, for local development) are located in `dist`. These are compiled from `src`.
 - Prod files (bundled, production ready files) are located in `build`. These are compiled from `src`.
+
+## Todo
+- Delete dist folder before dev'ing.
+- Delete build folder before building.
+- Prod bundling so that `npm run build` and `npm run start` works.
+- Avoid outputting double `<body>` (one for SSR and one client side).
+- Snowpack, only transpile web_modules on first run: https://github.com/snowpackjs/snowpack/issues/1052
