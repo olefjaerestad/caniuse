@@ -5,13 +5,15 @@
  * https://stackoverflow.com/questions/37787748/how-to-authenticate-to-google-analytics-reporting-api-v4
  * https://support.google.com/analytics/thread/13279940?hl=en
  */
+import { getConfig } from '../util/config';
 import { google, Auth } from 'googleapis';
-import key from '../../../secrets/ga-service-account-auth.json';
+
+const authInfo = getConfig('googleAnalytics', 'auth');
 
 const jwtClient = new google.auth.JWT(
-  key.client_email,
+  authInfo.client_email,
   null,
-  key.private_key,
+  authInfo.private_key,
   ['https://www.googleapis.com/auth/analytics.readonly'],
   null
 );

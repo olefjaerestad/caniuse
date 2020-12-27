@@ -4,8 +4,6 @@ Check if you can use a certain CSS or JS feature on your site based on browser u
 ## Dev
 Duplicate `config/config-example.json` into `config/config.json` and add your info here. Remember to delete the comments.
 
-Duplicate `secrets/ga-service-account-auth-example.json` into `secrets/ga-service-account-auth.json` and add your Analytics Reporting API v4 authentication info here. Remember to delete the comments.
-
 `npm i`
 
 `npm run dev`

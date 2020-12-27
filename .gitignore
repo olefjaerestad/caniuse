@@ -106,8 +106,5 @@ dist
 # Config
 config/config.json
 
-# Secrets
-secrets/ga-service-account-auth.json
-
 # Build
 build

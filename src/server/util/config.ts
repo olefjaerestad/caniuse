@@ -16,7 +16,7 @@ export function getConfig<
 export function getConfig<KEY1 extends keyof IConfig>(key: KEY1): IConfig[KEY1];
 export function getConfig(): IConfig;
 export function getConfig(...keys: string[]): any {
-  const filePath = path.resolve(__dirname, '../../../../config/config.json');
+  const filePath = path.resolve('config/config.json');
 
   if (!configFile) {
     if (!fs.existsSync(filePath)) {
