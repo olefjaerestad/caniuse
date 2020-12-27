@@ -5,7 +5,14 @@ import { IConfig } from './config-types';
 // TODO: Try to include this within getConfig() somehow.
 let configFile: IConfig | null = null;
 
-export function getConfig<KEY1 extends keyof IConfig, KEY2 extends keyof IConfig[KEY1]>(key: KEY1, key2: KEY2): IConfig[KEY1][KEY2];
+/**
+ * Retrieve value at 'keys' from config.json,
+ * where 'keys' are zero or more nested object property names.
+ */
+export function getConfig<
+  KEY1 extends keyof IConfig, 
+  KEY2 extends keyof IConfig[KEY1]
+>(key: KEY1, key2: KEY2): IConfig[KEY1][KEY2];
 export function getConfig<KEY1 extends keyof IConfig>(key: KEY1): IConfig[KEY1];
 export function getConfig(): IConfig;
 export function getConfig(...keys: string[]): any {

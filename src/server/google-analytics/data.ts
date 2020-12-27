@@ -4,11 +4,13 @@
  * https://ga-dev-tools.appspot.com/query-explorer/
  */
 import { analyticsreporting_v4 } from 'googleapis';
-import { IBrowserUsageDataRow, TBrowserUsageDataRowFilter } from './data-types';
+import { getMaxBrowserVersion, getMinBrowserVersion } from './util/browser-version-utils';
 import { reporting } from './auth';
+import { TBrowserUsageData, TBrowserUsageDataFilter } from './data-types';
 
 /**
  * Get browser usage data from Google Analytics.
+ * @param viewId GA viewId to get data for.
  * @param days Starting at today, how many days back to get data for.
  */
 export async function getBrowserUsageData(viewId: string, days: number): Promise<analyticsreporting_v4.Schema$GetReportsResponse | undefined> {
@@ -57,21 +59,32 @@ export async function getBrowserUsageData(viewId: string, days: number): Promise
  * Format Google Analytics browser usage data for easier handling.
  * @param data 
  */
-export function formatBrowserUsageData(data: analyticsreporting_v4.Schema$GetReportsResponse): IBrowserUsageDataRow[] {
+export function formatBrowserUsageData(data: analyticsreporting_v4.Schema$GetReportsResponse): TBrowserUsageData {
   const totalUsers = Number(data.reports[0].data.totals[0].values[0]);
 
-  const res = data.reports[0].data.rows.reduce((acc: IBrowserUsageDataRow[], val: analyticsreporting_v4.Schema$ReportRow) => {
+  const res = data.reports[0].data.rows.reduce((acc: TBrowserUsageData, val: analyticsreporting_v4.Schema$ReportRow) => {
+    const browser = val.dimensions[0];
+    const version = val.dimensions[1];
     const users = Number(val.metrics[0].values[0]);
     const usersPercentage = users / totalUsers * 100;
 
-    acc.push({
-      browser: val.dimensions[0],
-      version: val.dimensions[1],
+    if (!acc[browser]) {
+      acc[browser] = {
+        versions: [],
+      }
+    }
+
+    acc[browser].versions.push({
       users,
       usersPercentage,
+      version,
     });
+
+    acc[browser].maxVersion = getMaxBrowserVersion(acc[browser].versions);
+    acc[browser].minVersion = getMinBrowserVersion(acc[browser].versions);
+    
     return acc;
-  }, []);
+  }, {});
 
   return res;
 }
@@ -81,12 +94,28 @@ export function formatBrowserUsageData(data: analyticsreporting_v4.Schema$GetRep
  * @param data 
  * @param filters 
  */
-export function filterBrowserUsageData(data: IBrowserUsageDataRow[], filters: TBrowserUsageDataRowFilter): IBrowserUsageDataRow[] {
-  return data.filter((val) => {
-    if (!filters[val.browser]) {
-      return val.usersPercentage >= Object.values(filters)[0].minUsersPercentage;
-    }
+export function filterBrowserUsageData(data: TBrowserUsageData, filters: TBrowserUsageDataFilter): TBrowserUsageData {
+  return Object.entries(data).reduce((browsers: TBrowserUsageData, val: [string, TBrowserUsageData['Chrome']]) => {
+    const [browser, usageData] = val;
+    
+    usageData.versions.forEach((version: TBrowserUsageData['Chrome']['versions'][0]) => {
+      const minUsersPercentage = filters[browser] 
+        ? filters[browser].minUsersPercentage 
+        : Object.values(filters)[0].minUsersPercentage;
 
-    return val.usersPercentage >= filters[val.browser].minUsersPercentage;
-  });
+      if (version.usersPercentage >= minUsersPercentage) {
+        if (!browsers[browser]) {
+          browsers[browser] = {
+            maxVersion: usageData.maxVersion,
+            minVersion: usageData.minVersion,
+            versions: [],
+          }
+        }
+
+        browsers[browser].versions.push(version);
+      }
+    });
+    
+    return browsers;
+  }, {});
 }
