@@ -12,7 +12,7 @@ export function Head() {
 function generateHeadScripts() {
   return (
     <>
-      <script src="static/client.js"></script>
+      <script src="static/client.js" type="module"></script>
     </>
   )
 }

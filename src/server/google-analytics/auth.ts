@@ -6,7 +6,10 @@
  * https://support.google.com/analytics/thread/13279940?hl=en
  */
 import { getConfig } from '../util/config';
-import { google, Auth } from 'googleapis';
+// https://stackoverflow.com/questions/47277887/node-experimental-modules-requested-module-does-not-provide-an-export-named
+// import { google, Auth } from 'googleapis';
+import googleapis from 'googleapis';
+const { google } = googleapis;
 
 const authInfo = getConfig('googleAnalytics', 'auth');
 
@@ -22,7 +25,7 @@ export const reporting = google.analyticsreporting('v4');
 
 export async function authorize() {
   return jwtClient.authorize()
-    .then((credentials: Auth.Credentials) => {
+    .then((credentials: googleapis.Auth.Credentials) => {
       const oauth2Client = new google.auth.OAuth2();
 
       oauth2Client.setCredentials({

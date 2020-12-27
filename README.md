@@ -8,9 +8,16 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 
 `npm run dev`
 
-> Note: This will throw a `Cannot find module` error first time you run it. Just keep the script running and eventually the required files will be built and the script will continue.
+> Dev uses `tsc-watch`, `snowpack` and `nodemon` for transpiling and serving. `react` is used for the frontend, both through server side rendering and client side hydration.
 
 ## Prod
+`npm i`
+
 `npm run build`
 
 `npm run start`
+
+## Notes
+- Src files (the files you actually edit) are located in `src`.
+- Dev files (used by dev server, for local development) are located in `dist`. These are compiled from `src`.
+- Prod files (bundled, production ready files) are located in `build`. These are compiled from `src`.
