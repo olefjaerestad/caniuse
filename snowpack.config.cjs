@@ -1,6 +1,6 @@
 module.exports = {
   buildOptions: {
-    out: 'dist'
+    out: process.env.NODE_ENV === 'production' ? 'build' : 'dist'
   },
   installOptions: {
     installTypes: true,

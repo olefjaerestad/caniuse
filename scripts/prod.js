@@ -1,3 +1,3 @@
-const { app } = require('../build/index.js');
+import { app } from '../build/index.js';
 
 app();

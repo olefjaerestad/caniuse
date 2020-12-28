@@ -23,8 +23,16 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Prod files (bundled, production ready files) are located in `build`. These are compiled from `src`.
 
 ## Todo
-- Delete dist folder before dev'ing.
-- Delete build folder before building.
+- Increase `npm run dev` speed.
+- HMR.
+- Snowpack, only transpile web_modules on first run: https://github.com/snowpackjs/snowpack/issues/1052
+
+## In progress
+
+
+## Done
 - Prod bundling so that `npm run build` and `npm run start` works.
 - Avoid outputting double `<body>` (one for SSR and one client side).
-- Snowpack, only transpile web_modules on first run: https://github.com/snowpackjs/snowpack/issues/1052
+- Fix frontend console errors.
+- Delete dist folder before dev'ing.
+- Delete build folder before building.

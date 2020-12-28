@@ -4,7 +4,7 @@ export default {
   input: 'src/server/index.ts',
   output: {
     dir: 'build',
-    format: 'cjs',
+    format: 'es',
   },
   plugins: [
     typescript({

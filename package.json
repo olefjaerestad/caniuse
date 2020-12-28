@@ -36,9 +36,9 @@
     "url": "git+https://github.com/olefjaerestad/caniuse.git"
   },
   "scripts": {
-    "build": "rollup --config",
-    "dev": "tsc-watch -p tsconfig.dev.json --onSuccess \"sh -c 'snowpack build && nodemon --experimental-specifier-resolution=node scripts/dev.js'\"",
-    "start": "node scripts/prod.js",
+    "build": "rm -rf build && rollup --config && NODE_ENV=production snowpack build",
+    "dev": "rm -rf dist && tsc-watch -p tsconfig.dev.json --onSuccess \"sh -c 'NODE_ENV=development snowpack build && nodemon --experimental-specifier-resolution=node scripts/dev.js'\"",
+    "start": "node --experimental-specifier-resolution=node scripts/prod.js",
     "test": "test"
   },
   "type": "module",

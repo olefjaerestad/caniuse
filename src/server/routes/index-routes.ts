@@ -7,8 +7,33 @@ const { renderToString } = reactDomServer;
 
 export function indexRoutes(route: string, server: Express): Express {
   server.get(`/${route}`, async (req: Request, res: Response) => {
-    res.send(renderToString(App()));
+    res.send(generateIndex());
   });
-
   return server;
+}
+
+function generateIndex() {
+  return /*html*/`
+    <html>
+      ${generateHead()}
+      <body>
+        <div id="app">${renderToString(App())}</div>
+      </body>
+    </html>
+  `.trim();
+}
+
+function generateHead() {
+  return /*html*/`
+    <head>
+      <title>Caniuse - based on browser usage</title>
+      ${generateHeadScripts()}
+    </head>
+  `.trim();
+}
+
+function generateHeadScripts() {
+  return /*html*/`
+    <script src="static/client.js" type="module"></script>
+  `.trim();
 }

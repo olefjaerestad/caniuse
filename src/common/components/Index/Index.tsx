@@ -1,13 +1,14 @@
 import React from 'react';
-import { Head } from '../Head/Head';
-import { Footer } from '../Footer/Footer';
 
 export function Index() {
+  // TODO: Remove this.
+  function run() {
+    console.log('run()');
+  }
+
   return (
     <>
-      <Head />
-      <h1>Index component</h1>
-      <Footer />
+      <h1 onClick={run}>Index component</h1>
     </>
   );
 }
