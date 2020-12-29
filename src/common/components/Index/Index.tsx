@@ -2,8 +2,8 @@ import React from 'react';
 
 export function Index() {
   // TODO: Remove this.
-  function run() {
-    console.log('run()');
+  function run(prop) {
+    console.log('Index:run()');
   }
 
   return (

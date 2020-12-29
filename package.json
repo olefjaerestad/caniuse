@@ -11,15 +11,19 @@
   },
   "description": "Check if you can use a certain CSS or JS feature on your site based on browser usage data from Google Analytics.",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.1",
+    "@rollup/plugin-replace": "^2.3.4",
     "@rollup/plugin-typescript": "^8.1.0",
+    "@snowpack/plugin-typescript": "^1.1.1",
     "@types/express": "^4.17.9",
     "@types/node": "^14.14.14",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "concurrently": "^5.3.0",
     "nodemon": "^2.0.6",
     "rollup": "^2.35.1",
     "snowpack": "^2.18.5",
-    "tsc-watch": "^4.2.9",
     "tslib": "^2.0.3",
     "typescript": "^4.1.3"
   },
@@ -36,10 +40,12 @@
     "url": "git+https://github.com/olefjaerestad/caniuse.git"
   },
   "scripts": {
-    "build": "rm -rf build && rollup --config && NODE_ENV=production snowpack build",
-    "dev": "rm -rf dist && tsc-watch -p tsconfig.dev.json --onSuccess \"sh -c 'NODE_ENV=development snowpack build && nodemon --experimental-specifier-resolution=node scripts/dev.js'\"",
-    "start": "node --experimental-specifier-resolution=node scripts/prod.js",
-    "test": "test"
+    "build": "rm -rf build && npm run build:rollup",
+    "build:rollup": "rollup --config",
+    "dev": "rm -rf dist && concurrently \"npm run dev:watch\" \"npm run dev:serve\"",
+    "dev:serve": "NODE_ENV=development nodemon --experimental-specifier-resolution=node scripts/dev.js",
+    "dev:watch": "snowpack build --polyfill-node --watch",
+    "start": "NODE_ENV=production node --experimental-specifier-resolution=node scripts/prod.js"
   },
   "type": "module",
   "version": "0.0.1"

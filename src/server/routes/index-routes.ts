@@ -12,6 +12,10 @@ export function indexRoutes(route: string, server: Express): Express {
   return server;
 }
 
+/*
+ * #app and renderToString must be on same line: 
+ * https://github.com/facebook/react/issues/10879
+ */
 function generateIndex() {
   return /*html*/`
     <html>

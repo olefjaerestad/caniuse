@@ -1,3 +1,3 @@
-import { app } from '../build/index.js';
+import { app } from '../build/server/index.js';
 
 app();

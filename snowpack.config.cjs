@@ -1,12 +1,19 @@
 module.exports = {
   buildOptions: {
-    out: process.env.NODE_ENV === 'production' ? 'build' : 'dist'
+    out: 'dist',
   },
   installOptions: {
-    installTypes: true,
+    // Add all server packages here:
+    externalPackage: ['fs', 'path', 'googleapis', 'express'],
+    polyfillNode: true,
   },
   mount: {
-    'src/client': '/client',
-    'src/common': '/common',
-  }
+    'src': '/',
+  },
+  plugins: [
+    '@snowpack/plugin-typescript',
+    // ['@snowpack/plugin-typescript', {
+    //   args: '--project tsconfig.json',
+    // }],
+  ],
 }
