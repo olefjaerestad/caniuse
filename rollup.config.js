@@ -11,6 +11,7 @@ export default [
       format: 'es',
     },
     plugins: [
+      // TODO: Bundle imported node_modules in output?
       typescript({
         tsconfig: './tsconfig.json'
       }),
