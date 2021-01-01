@@ -16,7 +16,8 @@ export type TBrowserUsageData = {
 }
 
 // TODO: Split minUsersPercentage into 2, one for critical and one for fancy functionality.
-// e.g. critical: {minUsersPercentage: number} and fancy: {minUsersPercentage: number}
+// e.g. critical: {minUsersPercentage: number} and fancy: {minUsersPercentage: number}.
+// Put them in config.json?
 export type TBrowserUsageDataFilter = {
   [key in TBrowser]?: {
     minUsersPercentage: number;

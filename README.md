@@ -29,7 +29,6 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Prod files (bundled, production ready files) are located in `build`. These are compiled from `src`.
 
 ## Todo
-- Set NODE_ENV at compile time instead of runtime, for more efficient tree shaking?
 - Use redux instead of custom server state implementation?
 - Add endpoint(s) for refreshing browser usage and browser support data in server state.
 - HMR.
@@ -47,3 +46,4 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Increase `npm run dev` speed. Only Snowpack transpile web_modules on first run: https://github.com/snowpackjs/snowpack/issues/1052, https://github.com/snowpackjs/snowpack/issues/376
 - Load browser usage and browser support data immediately when server starts up?
 - `npm run dev:mock`.
+- Set NODE_ENV at compile time on `npm run build` instead of runtime on `npm run start`, for more efficient tree shaking?
