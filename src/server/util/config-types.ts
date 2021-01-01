@@ -21,5 +21,8 @@ export interface IConfig {
     domains: {
       [domain: string]: IGoogleAnalyticsSite;
     };
+    params: {
+      days: number;
+    }
   };
 }

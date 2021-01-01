@@ -3,7 +3,9 @@
  * https://ga-dev-tools.appspot.com/dimensions-metrics-explorer/
  * https://ga-dev-tools.appspot.com/query-explorer/
  */
+import fs from 'fs';
 import { analyticsreporting_v4 } from 'googleapis';
+import { GaxiosResponse } from 'gaxios';
 import { getMaxBrowserVersion, getMinBrowserVersion } from './util/browser-version-utils';
 import { reporting } from './auth';
 import { TBrowserUsageData, TBrowserUsageDataFilter } from './data-types';
@@ -53,6 +55,13 @@ export async function getBrowserUsageData(viewId: string, days: number): Promise
   }
 
   return res.data;
+}
+
+export function getMockBrowserUsageData(): analyticsreporting_v4.Schema$GetReportsResponse {
+  const data: any = fs.readFileSync('mock/browser-usage-data.json', 'utf-8');
+  const parsedData: GaxiosResponse<analyticsreporting_v4.Schema$GetReportsResponse> = JSON.parse(data);
+
+  return parsedData.data;
 }
 
 /**

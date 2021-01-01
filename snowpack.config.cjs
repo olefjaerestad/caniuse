@@ -4,7 +4,13 @@ module.exports = {
   },
   installOptions: {
     // Add all server packages here:
-    externalPackage: ['fs', 'path', 'googleapis', 'express'],
+    externalPackage: [
+      'express',
+      'fs',
+      'googleapis',
+      'https',
+      'path'
+    ],
     polyfillNode: true,
   },
   mount: {

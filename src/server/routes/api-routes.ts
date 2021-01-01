@@ -1,33 +1,37 @@
-// import util from 'util';
 import { Express, Request, Response } from 'express';
-import { filterBrowserUsageData, formatBrowserUsageData, getBrowserUsageData } from '../google-analytics/data';
-import { getConfig } from '../util/config';
-import { TBrowserUsageDataFilter } from '../google-analytics/data-types';
-
-const gaDomains = getConfig('googleAnalytics', 'domains');
-const { viewId } = Object.values(gaDomains)[0];
-const filters: TBrowserUsageDataFilter = {
-  'Chrome': {
-    minUsersPercentage: 15,
-  },
-  'Safari': {
-    minUsersPercentage: 15,
-  },
-  'Firefox': {
-    minUsersPercentage: 15,
-  },
-};
+import { filterSupportData } from '../caniuse-data/data';
+import { getBrowserSupport } from '../caniuse-data/util/caniuse-utils';
+import { getServerState } from '../server-state';
 
 export function apiRoutes(route: string, server: Express): Express {
-  server.get(`/${route}/browserusage`, async (req: Request, res: Response) => {
-    const browserDataRaw = await getBrowserUsageData(viewId, 7); // TODO: Remove this when done testing?
-    const browserDataFiltered = filterBrowserUsageData(browserDataRaw, filters);
-    const browserData = formatBrowserUsageData(browserDataFiltered);
-    // console.log(util.inspect({browserDataRaw}, false, null));
-    // console.log(util.inspect({browserDataFiltered}, false, null));
-    // console.log(util.inspect({browserData}, false, null));
+  server.get(`/${route}/caniuse`, async (req: Request, res: Response) => {
+    const { search } = req.query;
 
-    res.json(browserData);
+    if (!search || typeof search !== 'string' || search.length < 3) {
+      return res.status(400).send(
+        'search param must be set, be a string and be at least 3 characters.'
+      );
+    }
+
+    const browserUsageData = getServerState('browserUsageData');
+    const browserSupportData = getServerState('browserSupportData');
+
+    if (!Object.keys(browserUsageData).length) {
+      return res.status(500).send(
+        'Server has no browserUsageData.'
+      );
+    }
+
+    if (!Object.keys(browserSupportData).length) {
+      return res.status(500).send(
+        'Server has no browserSupportData.'
+      );
+    }
+
+    const browserSupportDataFiltered = filterSupportData(browserSupportData, search);
+    const supportDataForMyAudience = getBrowserSupport(browserUsageData, browserSupportDataFiltered);
+
+    res.json(supportDataForMyAudience);
   });
 
   return server;

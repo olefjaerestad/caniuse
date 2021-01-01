@@ -1,5 +1,5 @@
 // TODO: Remove 'string' when we have added all browsers.
-type browser = 'Android Webview' | 'Chrome' | 'Firefox' | 'Opera' | 'Safari' | string;
+export type TBrowser = 'Android Webview' | 'Chrome' | 'Firefox' | 'Opera' | 'Safari' | string;
 
 export interface IBrowserVersion {
   users: number;
@@ -8,15 +8,17 @@ export interface IBrowserVersion {
 }
 
 export type TBrowserUsageData = {
-  [key in browser]?: {
+  [key in TBrowser]?: {
     maxVersion?: IBrowserVersion;
     minVersion?: IBrowserVersion;
     versions: IBrowserVersion[];
   }
 }
 
+// TODO: Split minUsersPercentage into 2, one for critical and one for fancy functionality.
+// e.g. critical: {minUsersPercentage: number} and fancy: {minUsersPercentage: number}
 export type TBrowserUsageDataFilter = {
-  [key in browser]?: {
+  [key in TBrowser]?: {
     minUsersPercentage: number;
   }
 }

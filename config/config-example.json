@@ -16,6 +16,9 @@
       "yourdomain.com": { // Your domain here. You can add multiple domains by adding more objects.
         "viewId": "123" // Your GA viewId here.
       }
+    },
+    "params": { // Params for data fetching from GA
+      "days": 180
     }
   }
 }

@@ -42,7 +42,7 @@ node_modules/
 jspm_packages/
 
 # TypeScript v1 declaration files
-typings/
+# typings/
 
 # TypeScript cache
 *.tsbuildinfo
@@ -111,3 +111,6 @@ build
 
 # Rollup
 .rollup.cache
+
+# Mocks
+mock

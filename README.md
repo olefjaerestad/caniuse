@@ -12,6 +12,8 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 
 > Dev uses `snowpack` and `nodemon` for transpiling and serving. `express` is used for the server. `react` is used for the frontend, both through server side rendering and client side hydration.
 
+> Dev supports a mock mode, where the app uses local mock data instead of doing actual http calls. To use mock mode, run `npm run mock:generate` (this will create a `mock` folder with the data), then `npm run dev:mock`. Handy for developing offline.
+
 ## Prod
 `npm i`
 
@@ -27,7 +29,11 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Prod files (bundled, production ready files) are located in `build`. These are compiled from `src`.
 
 ## Todo
+- Set NODE_ENV at compile time instead of runtime, for more efficient tree shaking?
+- Use redux instead of custom server state implementation?
+- Add endpoint(s) for refreshing browser usage and browser support data in server state.
 - HMR.
+- Write tests.
 - Fix `ERR_MODULE_NOT_FOUND`on `npm run dev` by only running nodemon _after_ snowpack has finished transpiling. Side note: `nodemon` doesnt seem to restart automatically if provided a config.
 
 ## In progress
@@ -39,3 +45,5 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Delete dist folder before dev'ing.
 - Delete build folder before building.
 - Increase `npm run dev` speed. Only Snowpack transpile web_modules on first run: https://github.com/snowpackjs/snowpack/issues/1052, https://github.com/snowpackjs/snowpack/issues/376
+- Load browser usage and browser support data immediately when server starts up?
+- `npm run dev:mock`.

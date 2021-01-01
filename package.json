@@ -43,8 +43,10 @@
     "build": "rm -rf build && npm run build:rollup",
     "build:rollup": "rollup --config",
     "dev": "rm -rf dist && concurrently \"npm run dev:watch\" \"npm run dev:serve\"",
+    "dev:mock": "rm -rf dist && concurrently \"IS_MOCK_MODE=true npm run dev:watch\" \"IS_MOCK_MODE=true npm run dev:serve\"",
     "dev:serve": "NODE_ENV=development nodemon --experimental-specifier-resolution=node scripts/dev.js",
     "dev:watch": "snowpack build --polyfill-node --watch",
+    "mock:generate": "node scripts/generate-mock-data.js",
     "start": "NODE_ENV=production node --experimental-specifier-resolution=node scripts/prod.js"
   },
   "type": "module",
