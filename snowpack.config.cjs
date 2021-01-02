@@ -9,7 +9,8 @@ module.exports = {
       'fs',
       'googleapis',
       'https',
-      'path'
+      'path',
+      'util'
     ],
     polyfillNode: true,
   },

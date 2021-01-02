@@ -16,7 +16,7 @@ export default [
       // TODO: Bundle imported node_modules in output?
       replace({
         // Replace global vars to allow for more efficient tree shaking/dead code removal.
-        // We avoid final removal in output bundle.
+        // We avoid final replacement in output bundle, since there are certain occurences we don't want to replace.
         '__IS_MOCK_MODE__': (id) => id === serverOutputFilename ? '__IS_MOCK_MODE__' : 'false',
         '__NODE_ENV__': (id) => id === serverOutputFilename ? '__NODE_ENV__' : JSON.stringify( 'production' ),
         exclude: ['src/server/globals.ts', 'src/server/index.ts'],

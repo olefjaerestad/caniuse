@@ -29,8 +29,6 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Prod files (bundled, production ready files) are located in `build`. These are compiled from `src`.
 
 ## Todo
-- Use redux instead of custom server state implementation?
-- Add endpoint(s) for refreshing browser usage and browser support data in server state.
 - HMR.
 - Write tests.
 - Fix `ERR_MODULE_NOT_FOUND`on `npm run dev` by only running nodemon _after_ snowpack has finished transpiling. Side note: `nodemon` doesnt seem to restart automatically if provided a config.
@@ -47,3 +45,4 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Load browser usage and browser support data immediately when server starts up?
 - `npm run dev:mock`.
 - Set NODE_ENV at compile time on `npm run build` instead of runtime on `npm run start`, for more efficient tree shaking?
+- Add endpoint(s) for refreshing browser usage and browser support data in server state.

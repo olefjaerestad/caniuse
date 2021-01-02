@@ -22,7 +22,6 @@ interface IServerState {
 const serverState: IServerState = {};
 
 const googleAnalytics = getConfig('googleAnalytics');
-const { viewId } = Object.values(googleAnalytics.domains)[0];
 const { days } = googleAnalytics.params;
 const filters: TBrowserUsageDataFilter = {
   'Chrome': {
@@ -49,7 +48,7 @@ export function getServerState<T extends keyof IServerState>(key: T): IServerSta
   return serverState[key];
 }
 
-export async function setInitialServerState() {
+export async function setFullServerState(viewId: string) {
   let browserUsageDataRaw;
   let browserSupportData;
 

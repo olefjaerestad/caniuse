@@ -48,7 +48,9 @@ export async function getBrowserUsageData(viewId: string, days: number): Promise
         ],
       }],
     }
-  }).catch((err) => console.error({errData2: err}));
+  }).catch((error) => {
+    throw new Error(error);
+  });
 
   if (!res) {
     return;

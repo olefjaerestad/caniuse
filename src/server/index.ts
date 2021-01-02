@@ -2,8 +2,9 @@ import './globals';
 import express, { Express } from 'express';
 import { apiRoutes } from './routes/api-routes';
 import { authorize } from './google-analytics/auth';
+import { getConfig } from './util/config';
 import { indexRoutes } from './routes/index-routes';
-import { setInitialServerState } from './server-state';
+import { setFullServerState } from './server-state';
 import { staticRoutes } from './routes/static-routes';
 
 type IRegisterRoutesFunction = (route: string, server: Express) => Express;
@@ -13,9 +14,18 @@ interface IRoutes {
 
 const server = express();
 const routes: IRoutes = {
-  '': indexRoutes,
-  'api': apiRoutes,
-  'static': staticRoutes,
+  '/': indexRoutes,
+  '/api': apiRoutes,
+  '/static': staticRoutes,
+}
+const gaDomains = getConfig('googleAnalytics', 'domains');
+const { viewId } = Object.values(gaDomains)[0];
+
+function registerMiddleware(server: Express): Express {
+  // https://expressjs.com/en/4x/api.html#req.body
+  server.use(express.json());
+
+  return server;
 }
 
 function registerRoutes(server: Express, routes: IRoutes) {
@@ -26,7 +36,8 @@ function registerRoutes(server: Express, routes: IRoutes) {
 
 export async function app() {
   await authorize();
-  await setInitialServerState();
+  await setFullServerState(viewId);
+  registerMiddleware(server);
   registerRoutes(server, routes);
   
   server.listen('3000', () => console.info(

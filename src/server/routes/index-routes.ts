@@ -6,7 +6,7 @@ import reactDomServer from 'react-dom/server';
 const { renderToString } = reactDomServer;
 
 export function indexRoutes(route: string, server: Express): Express {
-  server.get(`/${route}`, async (req: Request, res: Response) => {
+  server.get(`${route}`, async (req: Request, res: Response) => {
     res.send(generateIndex());
   });
   return server;
