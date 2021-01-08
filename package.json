@@ -11,6 +11,7 @@
   },
   "description": "Check if you can use a certain CSS or JS feature on your site based on browser usage data from Google Analytics.",
   "devDependencies": {
+    "@olefjaerestad/hmr": "0.0.5",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.1",
     "@rollup/plugin-replace": "^2.3.4",
@@ -20,12 +21,14 @@
     "@types/node": "^14.14.14",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/ws": "^7.4.0",
     "concurrently": "^5.3.0",
     "nodemon": "^2.0.6",
     "rollup": "^2.35.1",
     "snowpack": "^2.18.5",
     "tslib": "^2.0.3",
-    "typescript": "^4.1.3"
+    "typescript": "^4.1.3",
+    "ws": "^7.4.2"
   },
   "homepage": "https://github.com/olefjaerestad/caniuse#readme",
   "keywords": [
@@ -33,7 +36,7 @@
     "googleanalytics"
   ],
   "license": "MIT",
-  "main": "build/index.js",
+  "main": "build/server/index.js",
   "name": "caniuse",
   "repository": {
     "type": "git",
@@ -42,10 +45,11 @@
   "scripts": {
     "build": "rm -rf build && npm run build:rollup",
     "build:rollup": "IS_MOCK_MODE=false NODE_ENV=production rollup --config",
-    "dev": "rm -rf dist && concurrently \"npm run dev:watch\" \"npm run dev:serve\"",
+    "dev": "rm -rf dist && concurrently \"npm run dev:watch\" \"npm run hmr:serve\" \"npm run dev:serve\"",
     "dev:mock": "rm -rf dist && concurrently \"IS_MOCK_MODE=true npm run dev:watch\" \"IS_MOCK_MODE=true npm run dev:serve\"",
     "dev:serve": "NODE_ENV=development nodemon --experimental-specifier-resolution=node scripts/dev.js",
-    "dev:watch": "snowpack build --polyfill-node --watch",
+    "dev:watch": "snowpack build --watch",
+    "hmr:serve": "node hmr-server.js",
     "mock:generate": "node scripts/generate-mock-data.js",
     "start": "NODE_ENV=production node --experimental-specifier-resolution=node scripts/prod.js"
   },

@@ -114,3 +114,6 @@ build
 
 # Mocks
 mock
+
+# System files
+.DS_Store

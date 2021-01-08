@@ -39,5 +39,7 @@ function generateHead() {
 function generateHeadScripts() {
   return /*html*/`
     <script src="static/client.js" type="module"></script>
+    ${__NODE_ENV__ === 'development' && 
+      '<script src="static/hmr-client.js" type="module"></script>'}
   `.trim();
 }

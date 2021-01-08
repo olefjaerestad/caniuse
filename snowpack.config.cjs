@@ -7,10 +7,14 @@ module.exports = {
     externalPackage: [
       'express',
       'fs',
+      'fsevents',
       'googleapis',
+      'http',
       'https',
       'path',
-      'util'
+      'util',
+      'url',
+      'ws'
     ],
     polyfillNode: true,
   },

@@ -6,6 +6,8 @@ import { getConfig } from './util/config';
 import { indexRoutes } from './routes/index-routes';
 import { setFullServerState } from './server-state';
 import { staticRoutes } from './routes/static-routes';
+// TODO: Use dynamic import for hmr, so we can include it only in dev?
+import { notify } from '@olefjaerestad/hmr';
 
 type IRegisterRoutesFunction = (route: string, server: Express) => Express;
 interface IRoutes {
@@ -40,7 +42,19 @@ export async function app() {
   registerMiddleware(server);
   registerRoutes(server, routes);
   
-  server.listen('3000', () => console.info(
-    `Server listening at localhost:3000. __NODE_ENV__: ${__NODE_ENV__}, __IS_MOCK_MODE__: ${__IS_MOCK_MODE__}`
-  ));
+  server.listen('3000', () => {
+    if (__NODE_ENV__ === 'development') {
+      notify({
+        hostname: 'localhost',
+        port: 3001,
+        event: {
+          type: 'serverrestart'
+        }
+      });
+    }
+
+    console.info(
+      `Server listening at localhost:3000. __NODE_ENV__: ${__NODE_ENV__}, __IS_MOCK_MODE__: ${__IS_MOCK_MODE__}`
+    );
+  });
 }
