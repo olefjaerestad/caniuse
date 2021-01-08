@@ -37,6 +37,8 @@ function generateHead() {
 }
 
 function generateHeadScripts() {
+  // TODO: __NODE_ENV__ gets converted to a string 'false' and output to document in prod. Must fix.
+  // It works well in dev.
   return /*html*/`
     <script src="static/client.js" type="module"></script>
     ${__NODE_ENV__ === 'development' && 
