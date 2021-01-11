@@ -47,11 +47,11 @@
     "build:rollup": "IS_MOCK_MODE=false NODE_ENV=production rollup --config",
     "dev": "rm -rf dist && concurrently \"npm run dev:watch\" \"npm run hmr:serve\" \"npm run dev:serve\"",
     "dev:mock": "rm -rf dist && concurrently \"IS_MOCK_MODE=true npm run dev:watch\" \"IS_MOCK_MODE=true npm run dev:serve\"",
-    "dev:serve": "NODE_ENV=development nodemon --experimental-specifier-resolution=node scripts/dev.js",
+    "dev:serve": "NODE_ENV=development nodemon --experimental-modules --experimental-specifier-resolution=node scripts/dev.js",
     "dev:watch": "snowpack build --watch",
     "hmr:serve": "node hmr-server.js",
     "mock:generate": "node scripts/generate-mock-data.js",
-    "start": "NODE_ENV=production node --experimental-specifier-resolution=node scripts/prod.js"
+    "start": "NODE_ENV=production node --experimental-modules --experimental-specifier-resolution=node scripts/prod.js"
   },
   "type": "module",
   "version": "0.0.1"

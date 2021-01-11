@@ -6,8 +6,6 @@ import { getConfig } from './util/config';
 import { indexRoutes } from './routes/index-routes';
 import { setFullServerState } from './server-state';
 import { staticRoutes } from './routes/static-routes';
-// TODO: Use dynamic import for hmr, so we can include it only in dev?
-import { notify } from '@olefjaerestad/hmr';
 
 type IRegisterRoutesFunction = (route: string, server: Express) => Express;
 interface IRoutes {
@@ -44,13 +42,16 @@ export async function app() {
   
   server.listen('3000', () => {
     if (__NODE_ENV__ === 'development') {
-      notify({
-        hostname: 'localhost',
-        port: 3001,
-        event: {
-          type: 'serverrestart'
-        }
-      });
+      import('@olefjaerestad/hmr')
+        .then((hmrModule) => {
+          hmrModule.notify({
+            hostname: 'localhost',
+            port: 3001,
+            event: {
+              type: 'serverrestart'
+            }
+          })
+        });
     }
 
     console.info(

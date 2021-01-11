@@ -34,13 +34,13 @@ export default [
     },
     plugins: [
       replace({
-        // Fixes https://github.com/rollup/rollup/issues/487:
+        // Fixes https://github.com/rollup/rollup/issues/487
         'process.env.NODE_ENV': JSON.stringify( 'production' )
       }),
       // Bundle imported node_modules in output:
       nodeResolve(),
       // Convert CommonJS modules to ES6:
-      // Fixes: https://github.com/rollup/rollup-plugin-commonjs/issues/201:
+      // Fixes: https://github.com/rollup/rollup-plugin-commonjs/issues/201
       commonjs(),
       typescript({
         tsconfig: './tsconfig.json'

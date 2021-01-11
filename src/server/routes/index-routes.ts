@@ -12,7 +12,7 @@ export function indexRoutes(route: string, server: Express): Express {
   return server;
 }
 
-/*
+/**
  * #app and renderToString must be on same line: 
  * https://github.com/facebook/react/issues/10879
  */
@@ -37,11 +37,19 @@ function generateHead() {
 }
 
 function generateHeadScripts() {
-  // TODO: __NODE_ENV__ gets converted to a string 'false' and output to document in prod. Must fix.
-  // It works well in dev.
-  return /*html*/`
+  let scripts = /*html*/`
     <script src="static/client.js" type="module"></script>
-    ${__NODE_ENV__ === 'development' && 
-      '<script src="static/hmr-client.js" type="module"></script>'}
-  `.trim();
+  `;
+  /**
+   * Can't use short circuiting, since rollup converts __NODE_ENV__ 
+   * to a string 'false' and the result of 'false' === 'development' 
+   * gets output to document in prod.
+   * Ref https://github.com/rollup/rollup/issues/2004
+   */
+  if (__NODE_ENV__ === 'development') {
+    scripts += /*html*/`
+      <script src="static/hmr-client.js" type="module"></script>
+    `;
+  }
+  return scripts.trim();
 }

@@ -1,6 +1,10 @@
 # caniuse
 Check if you can use a certain CSS or JS feature on your site based on browser usage data from Google Analytics.
 
+## Requirements
+A node.js environment that supports:
+- [Dynamic imports](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#dynamic_imports)
+
 ## Prerequisites
 1. If you haven't already, you need to create a Google Analytics view and include its script on your web site.
 2. Create service account credentials at [https://console.developers.google.com/apis/credentials](https://console.developers.google.com/apis/credentials)
