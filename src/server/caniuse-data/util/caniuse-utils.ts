@@ -1,5 +1,5 @@
 import { ICanIUseData } from '../data-types';
-import { TBrowserUsageData } from '../../google-analytics/data-types';
+import { IBrowserUsageDataByCriticality } from '../../google-analytics/data-types';
 import { 
   IFunctionality, 
   TBrowserMapping, 
@@ -32,11 +32,12 @@ const gaBrowserNameToCanIUseBrowserName: TBrowserMapping = {
 }
 
 export function getBrowserSupport(
-  browserData: TBrowserUsageData, 
+  browserData: IBrowserUsageDataByCriticality, 
   supportData: ICanIUseData['data']
 ): IFunctionality
 {
-  const browserUsageData = Object.entries(browserData);
+  const browserUsageDataCritical = Object.entries(browserData.criticalFunctionality);
+  const browserUsageDataNonCritical = Object.entries(browserData.nonCriticalFunctionality);
 
   // Build IFunctionality object
   const functionality = Object.entries(supportData).reduce((acc: IFunctionality, [functionalityName, functionalityData]) => {
@@ -44,8 +45,10 @@ export function getBrowserSupport(
     const firstPartiallySupportedIn: TFunctionalityFirstSupportedIn = {};
     const supportedInLatestBrowserVersion: TFunctionalitySupportedInLatestBrowserVersion = {};
     const browsers = Object.entries(functionalityData.stats);
-    let supportStatus: TSupportStatus[keyof TSupportStatus] = 'supported';
-    let supportStatusByBrowser: TSupportStatus = {};
+    let supportStatusCritical: TSupportStatus[keyof TSupportStatus] = 'supported';
+    let supportStatusNonCritical: TSupportStatus[keyof TSupportStatus] = 'supported';
+    let supportStatusByBrowserCritical: TSupportStatus = {};
+    let supportStatusByBrowserNonCritical: TSupportStatus = {};
 
     for (let i = 0; i < browsers.length; ++i) {
       const browserName = browsers[i][0];
@@ -71,11 +74,11 @@ export function getBrowserSupport(
       }
     }
 
-    // Find whether each of our users' browsers support functionality. 
-    for (let i = 0; i < browserUsageData.length; ++i) {
-      const browserName = browserUsageData[i][0];
-      const usageData = browserUsageData[i][1];
-      supportStatusByBrowser[browserName] = getSupportStatus({
+    // Find whether each of our users' browsers support critical functionality. 
+    for (let i = 0; i < browserUsageDataCritical.length; ++i) {
+      const browserName = browserUsageDataCritical[i][0];
+      const usageData = browserUsageDataCritical[i][1];
+      supportStatusByBrowserCritical[browserName] = getSupportStatus({
         partiallySupportedInVersion: firstPartiallySupportedIn[
           gaBrowserNameToCanIUseBrowserName[browserName]
         ],
@@ -86,16 +89,43 @@ export function getBrowserSupport(
       });
     }
 
-    // Find whether functionality is supported by all of our users' browsers. 
+    // Find whether each of our users' browsers support non-critical functionality. 
+    for (let i = 0; i < browserUsageDataNonCritical.length; ++i) {
+      const browserName = browserUsageDataNonCritical[i][0];
+      const usageData = browserUsageDataNonCritical[i][1];
+      supportStatusByBrowserNonCritical[browserName] = getSupportStatus({
+        partiallySupportedInVersion: firstPartiallySupportedIn[
+          gaBrowserNameToCanIUseBrowserName[browserName]
+        ],
+        audienceVersion: usageData.minVersion.version,
+        supportedInVersion: firstFullySupportedIn[
+          gaBrowserNameToCanIUseBrowserName[browserName]
+        ],
+      });
+    }
+
+    // Find whether critical functionality is supported by all of our users' browsers. 
     // This is the meat of our app.
-    for (let i = 0; i < Object.values(supportStatusByBrowser).length; ++i) {
-      const supportStatusForBrowser = Object.values(supportStatusByBrowser)[i];
+    for (let i = 0; i < Object.values(supportStatusByBrowserCritical).length; ++i) {
+      const supportStatusForBrowser = Object.values(supportStatusByBrowserCritical)[i];
       if (supportStatusForBrowser === 'not_supported') {
-        supportStatus = 'not_supported';
+        supportStatusCritical = 'not_supported';
         break;
       }
       if (supportStatusForBrowser === 'partial_support') {
-        supportStatus = 'partial_support';
+        supportStatusCritical = 'partial_support';
+        break;
+      }
+    }
+    // Find whether non-critical functionality is supported by all of our users' browsers. 
+    for (let i = 0; i < Object.values(supportStatusByBrowserNonCritical).length; ++i) {
+      const supportStatusForBrowser = Object.values(supportStatusByBrowserNonCritical)[i];
+      if (supportStatusForBrowser === 'not_supported') {
+        supportStatusNonCritical = 'not_supported';
+        break;
+      }
+      if (supportStatusForBrowser === 'partial_support') {
+        supportStatusNonCritical = 'partial_support';
         break;
       }
     }
@@ -104,10 +134,12 @@ export function getBrowserSupport(
       description: functionalityData.description,
       firstFullySupportedIn,
       firstPartiallySupportedIn,
-      notes_by_num: functionalityData.notes_by_num,
-      supportStatus,
-      supportStatusByBrowser,
+      notesByNum: functionalityData.notes_by_num,
       supportedInLatestBrowserVersion,
+      supportStatusByBrowserCritical,
+      supportStatusByBrowserNonCritical,
+      supportStatusCritical,
+      supportStatusNonCritical,
       title: functionalityData.title,
       url: `https://caniuse.com/${functionalityName}`,
     }

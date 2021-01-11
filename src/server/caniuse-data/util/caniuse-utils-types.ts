@@ -21,10 +21,12 @@ export interface IFunctionality {
   [functionality: string]: Pick<ICanIUseFunctionality, 'description' | 'title'> & {
     firstFullySupportedIn: TFunctionalityFirstSupportedIn;
     firstPartiallySupportedIn: TFunctionalityFirstSupportedIn;
-    notes_by_num: ICanIUseFunctionality['notes_by_num'];
+    notesByNum: ICanIUseFunctionality['notes_by_num'];
     supportedInLatestBrowserVersion: TFunctionalitySupportedInLatestBrowserVersion;
-    supportStatus: TSupportStatus[keyof TSupportStatus];
-    supportStatusByBrowser: TSupportStatus;
+    supportStatusByBrowserCritical: TSupportStatus;
+    supportStatusByBrowserNonCritical: TSupportStatus;
+    supportStatusCritical: TSupportStatus[keyof TSupportStatus];
+    supportStatusNonCritical: TSupportStatus[keyof TSupportStatus];
     url: string;
   };
 }

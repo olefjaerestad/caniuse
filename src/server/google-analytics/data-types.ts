@@ -1,3 +1,5 @@
+import { analyticsreporting_v4 } from 'googleapis';
+
 // TODO: Remove 'string' when we have added all browsers.
 export type TBrowser = 'Android Webview' | 'Chrome' | 'Firefox' | 'Opera' | 'Safari' | string;
 
@@ -15,11 +17,24 @@ export type TBrowserUsageData = {
   }
 }
 
-// TODO: Split minUsersPercentage into 2, one for critical and one for fancy functionality.
-// e.g. critical: {minUsersPercentage: number} and fancy: {minUsersPercentage: number}.
-// Put them in config.json?
+// TODO: Put these numbers in config.json?
 export type TBrowserUsageDataFilter = {
   [key in TBrowser]?: {
-    minUsersPercentage: number;
+    criticalFunctionality: {
+      minUsersPercentage: number;
+    }
+    nonCriticalFunctionality: {
+      minUsersPercentage: number;
+    }
   }
+}
+
+export interface IBrowserUsageDataByCriticality {
+  criticalFunctionality: TBrowserUsageData;
+  nonCriticalFunctionality: TBrowserUsageData;
+}
+
+export interface IBrowserUsageDataByCriticalityRaw {
+  criticalFunctionality: analyticsreporting_v4.Schema$GetReportsResponse;
+  nonCriticalFunctionality: analyticsreporting_v4.Schema$GetReportsResponse;
 }

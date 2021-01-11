@@ -6,9 +6,17 @@
 import fs from 'fs';
 import { analyticsreporting_v4 } from 'googleapis';
 import { GaxiosResponse } from 'gaxios';
-import { getMaxBrowserVersion, getMinBrowserVersion } from './util/browser-version-utils';
+import {
+  getMaxBrowserVersion, 
+  getMinBrowserVersion
+} from './util/browser-version-utils';
 import { reporting } from './auth';
-import { TBrowserUsageData, TBrowserUsageDataFilter } from './data-types';
+import {
+  TBrowserUsageData, 
+  TBrowserUsageDataFilter, 
+  IBrowserUsageDataByCriticality, 
+  IBrowserUsageDataByCriticalityRaw
+} from './data-types';
 
 /**
  * Get browser usage data from Google Analytics.
@@ -71,71 +79,78 @@ export function getMockBrowserUsageData(): analyticsreporting_v4.Schema$GetRepor
  * @param data 
  * @param filters 
  */
-export function filterBrowserUsageData(data: analyticsreporting_v4.Schema$GetReportsResponse, filters: TBrowserUsageDataFilter): analyticsreporting_v4.Schema$GetReportsResponse {
-  // const newData: analyticsreporting_v4.Schema$GetReportsResponse = JSON.parse(JSON.stringify(data));
-  const newData: analyticsreporting_v4.Schema$GetReportsResponse = {...data};
-  const totalUsers = Number(newData.reports[0].data.totals[0].values[0]);
-  // let minUsers: number | null = null;
-  // let maxUsers: number | null = null;
+export function filterBrowserUsageData(data: analyticsreporting_v4.Schema$GetReportsResponse, filters: TBrowserUsageDataFilter): IBrowserUsageDataByCriticalityRaw {
+  // const dataCopy: analyticsreporting_v4.Schema$GetReportsResponse = {...data};
+  // We're modifying deeply nested properties, so we need a new reference:
+  const dataCopy: analyticsreporting_v4.Schema$GetReportsResponse = JSON.parse(JSON.stringify(data));
+  const totalUsers = Number(data.reports[0].data.totals[0].values[0]);
+  const criticalFunctionalityData: IBrowserUsageDataByCriticalityRaw['criticalFunctionality'] = dataCopy;
+  const nonCriticalFunctionalityData: IBrowserUsageDataByCriticalityRaw['nonCriticalFunctionality'] = dataCopy;
 
-  newData.reports[0].data.rows = newData.reports[0].data.rows.filter((row: analyticsreporting_v4.Schema$ReportRow) => {
+  // Empty rows before we populate them with only the rows we want.
+  criticalFunctionalityData.reports[0].data.rows = [];
+  nonCriticalFunctionalityData.reports[0].data.rows = [];
+  data.reports[0].data.rows.forEach((row: analyticsreporting_v4.Schema$ReportRow) => {
     const browser = row.dimensions[0];
     const usersPercentage = Number(row.metrics[0].values[0]) / totalUsers * 100;
-    const minUsersPercentage = filters[browser] 
-      ? filters[browser].minUsersPercentage 
-      : Object.values(filters)[0].minUsersPercentage;
+    const minUsersPercentageCritical = filters[browser] 
+      ? filters[browser].criticalFunctionality.minUsersPercentage 
+      : Object.values(filters)[0].criticalFunctionality.minUsersPercentage;
+    const minUsersPercentageNonCritical = filters[browser] 
+      ? filters[browser].nonCriticalFunctionality.minUsersPercentage 
+      : Object.values(filters)[0].nonCriticalFunctionality.minUsersPercentage;
 
-    return usersPercentage >= minUsersPercentage;
+    if (usersPercentage >= minUsersPercentageCritical) {
+      criticalFunctionalityData.reports[0].data.rows.push(row);
+    }
+    if (usersPercentage >= minUsersPercentageNonCritical) {
+      nonCriticalFunctionalityData.reports[0].data.rows.push(row);
+    }
   });
-  // newData.reports[0].data.totals[0].values[0] = newData.reports[0].data.rows.reduce((acc: number, row) => {
-  //   const users = Number(row.metrics[0].values[0]);
 
-  //   if (maxUsers === null || users > maxUsers) {
-  //     maxUsers = users;
-  //   }
-  //   if (minUsers === null || users < minUsers) {
-  //     minUsers = users;
-  //   }
-
-  //   return acc + users;
-  // }, 0).toString();
-  // newData.reports[0].data.rowCount = newData.reports[0].data.rows.length;
-  // newData.reports[0].data.minimums[0].values[0] = minUsers.toString();
-  // newData.reports[0].data.maximums[0].values[0] = maxUsers.toString();
-
-  return newData;
+  return {
+    criticalFunctionality: criticalFunctionalityData,
+    nonCriticalFunctionality: nonCriticalFunctionalityData,
+  }
 }
 
 /**
  * Format Google Analytics browser usage data for easier handling.
  * @param data 
  */
-export function formatBrowserUsageData(data: analyticsreporting_v4.Schema$GetReportsResponse): TBrowserUsageData {
-  const totalUsers = Number(data.reports[0].data.totals[0].values[0]);
+export function formatBrowserUsageData(data: IBrowserUsageDataByCriticalityRaw): IBrowserUsageDataByCriticality {
+  const result: IBrowserUsageDataByCriticality = {
+    criticalFunctionality: {},
+    nonCriticalFunctionality: {},
+  }
 
-  const res = data.reports[0].data.rows.reduce((acc: TBrowserUsageData, val: analyticsreporting_v4.Schema$ReportRow) => {
-    const browser = val.dimensions[0];
-    const version = val.dimensions[1];
-    const users = Number(val.metrics[0].values[0]);
-    const usersPercentage = users / totalUsers * 100;
+  Object.keys(result).forEach((criticality: keyof IBrowserUsageDataByCriticality) => {
+    const totalUsers = Number(data[criticality].reports[0].data.totals[0].values[0]);
 
-    if (!acc[browser]) {
-      acc[browser] = {
-        versions: [],
+    result[criticality] = data[criticality].reports[0].data.rows.reduce((acc: TBrowserUsageData, row: analyticsreporting_v4.Schema$ReportRow) => {
+      const browser = row.dimensions[0];
+      const version = row.dimensions[1];
+      const users = Number(row.metrics[0].values[0]);
+      const usersPercentage = users / totalUsers * 100;
+      
+      if (!acc[browser]) {
+        acc[browser] = {
+          versions: [],
+        }
       }
-    }
+      
+      acc[browser].versions.push({
+        users,
+        usersPercentage,
+        version,
+      });
+      
+      acc[browser].maxVersion = getMaxBrowserVersion(acc[browser].versions);
+      acc[browser].minVersion = getMinBrowserVersion(acc[browser].versions);
+      
+      return acc;
+    }, {});
+  });
 
-    acc[browser].versions.push({
-      users,
-      usersPercentage,
-      version,
-    });
-
-    acc[browser].maxVersion = getMaxBrowserVersion(acc[browser].versions);
-    acc[browser].minVersion = getMinBrowserVersion(acc[browser].versions);
-    
-    return acc;
-  }, {});
-
-  return res;
+  return result;
 }

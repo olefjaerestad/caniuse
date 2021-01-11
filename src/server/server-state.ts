@@ -7,11 +7,12 @@ import {
 import { getBrowserSupportData, getMockBrowserSupportData } from './caniuse-data/data';
 import { getConfig } from './util/config';
 import { ICanIUseData } from './caniuse-data/data-types';
-import { TBrowserUsageData, TBrowserUsageDataFilter } from './google-analytics/data-types';
+import { IBrowserUsageDataByCriticality, TBrowserUsageDataFilter } from './google-analytics/data-types';
+import { analyticsreporting_v4 } from 'googleapis';
 
 interface IServerState {
   browserSupportData?: ICanIUseData;
-  browserUsageData?: TBrowserUsageData;
+  browserUsageData?: IBrowserUsageDataByCriticality;
 }
 
 /* type ISetServerStateParam = {
@@ -25,13 +26,28 @@ const googleAnalytics = getConfig('googleAnalytics');
 const { days } = googleAnalytics.params;
 const filters: TBrowserUsageDataFilter = {
   'Chrome': {
-    minUsersPercentage: 5,
+    criticalFunctionality: {
+      minUsersPercentage: 1,
+    },
+    nonCriticalFunctionality: {
+      minUsersPercentage: 5,
+    },
   },
   'Safari': {
-    minUsersPercentage: 5,
+    criticalFunctionality: {
+      minUsersPercentage: 1,
+    },
+    nonCriticalFunctionality: {
+      minUsersPercentage: 5,
+    },
   },
   'Firefox': {
-    minUsersPercentage: 5,
+    criticalFunctionality: {
+      minUsersPercentage: 1,
+    },
+    nonCriticalFunctionality: {
+      minUsersPercentage: 5,
+    },
   },
 };
 
@@ -49,8 +65,8 @@ export function getServerState<T extends keyof IServerState>(key: T): IServerSta
 }
 
 export async function setFullServerState(viewId: string) {
-  let browserUsageDataRaw;
-  let browserSupportData;
+  let browserUsageDataRaw: analyticsreporting_v4.Schema$GetReportsResponse;
+  let browserSupportData: ICanIUseData;
 
   if (__IS_MOCK_MODE__) {
     browserUsageDataRaw = getMockBrowserUsageData();
