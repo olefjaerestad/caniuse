@@ -1,6 +1,5 @@
 {
   "watch": [
-    "dist/common/",
     "dist/server/"
   ]
 }

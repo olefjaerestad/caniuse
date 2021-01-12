@@ -1,13 +1,16 @@
-import { Express, Request, Response } from 'express';
-import { App } from '../../common/App';
+import React from 'react';
 // https://stackoverflow.com/questions/47277887/node-experimental-modules-requested-module-does-not-provide-an-export-named
 // import { renderToString } from 'react-dom/server';
 import reactDomServer from 'react-dom/server';
+import { App } from '../../common/App';
+import { Express, Request, Response } from 'express';
+// https://reactrouter.com/web/guides/server-rendering
+import { StaticRouter } from 'react-router-dom';
 const { renderToString } = reactDomServer;
 
 export function indexRoutes(route: string, server: Express): Express {
   server.get(`${route}`, async (req: Request, res: Response) => {
-    res.send(generateIndex());
+    res.send(generateIndex(req.url));
   });
   return server;
 }
@@ -16,12 +19,12 @@ export function indexRoutes(route: string, server: Express): Express {
  * #app and renderToString must be on same line: 
  * https://github.com/facebook/react/issues/10879
  */
-function generateIndex() {
+function generateIndex(url: string) {
   return /*html*/`
     <html>
       ${generateHead()}
       <body>
-        <div id="app">${renderToString(App())}</div>
+        <div id="app">${renderToString(<StaticRouter location={url} context={{}}><App /></StaticRouter>)}</div>
       </body>
     </html>
   `.trim();

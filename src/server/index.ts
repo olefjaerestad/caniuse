@@ -1,4 +1,4 @@
-import './globals';
+import '../common/globals';
 import express, { Express } from 'express';
 import { apiRoutes } from './routes/api-routes';
 import { authorize } from './google-analytics/auth';

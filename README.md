@@ -22,6 +22,8 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 
 > Dev uses `snowpack` and `nodemon` for transpiling and running. `express` is used for the server. `react` is used for the frontend, both through server side rendering and client side hydration. `@olefjaerestad/hmr` is used for hot module replacement/automatic browser reloading.
 
+> When installing and using new dependencies, you might need to restart `npm run dev`, so Snowpack can transpile the newly added dependencies.
+
 > Dev supports a mock mode, where the app uses local mock data instead of doing actual http calls. To use mock mode, run `npm run mock:generate` (this will create a `mock` folder with the data. Requires a network connection.), then `npm run dev:mock`. Handy for developing offline.
 
 ## Prod
