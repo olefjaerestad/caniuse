@@ -4,8 +4,10 @@ import React from 'react';
 import reactDomServer from 'react-dom/server';
 import { App } from '../../common/App';
 import { Express, Request, Response } from 'express';
+import { Provider } from 'react-redux';
 // https://reactrouter.com/web/guides/server-rendering
 import { StaticRouter } from 'react-router-dom';
+import { store } from '../../common/redux/store';
 const { renderToString } = reactDomServer;
 
 export function indexRoutes(route: string, server: Express): Express {
@@ -24,7 +26,13 @@ function generateIndex(url: string) {
     <html>
       ${generateHead()}
       <body>
-        <div id="app">${renderToString(<StaticRouter location={url} context={{}}><App /></StaticRouter>)}</div>
+        <div id="app">${renderToString(
+          <Provider store={store}>
+            <StaticRouter location={url} context={{}}>
+              <App />
+            </StaticRouter>
+          </Provider>)}
+        </div>
       </body>
     </html>
   `.trim();

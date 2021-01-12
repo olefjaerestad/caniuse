@@ -1,7 +1,7 @@
 import { analyticsreporting_v4 } from 'googleapis';
+import { TBrowser } from '../../common/types/google-analytics-types';
 
-// TODO: Remove 'string' when we have added all browsers.
-export type TBrowser = 'Android Webview' | 'Chrome' | 'Firefox' | 'Opera' | 'Safari' | string;
+export { TBrowser }
 
 export interface IBrowserVersion {
   users: number;
