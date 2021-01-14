@@ -2,9 +2,9 @@ module.exports = {
   buildOptions: {
     out: 'dist',
   },
-  installOptions: {
+  packageOptions: {
     // Add all server packages here:
-    externalPackage: [
+    external: [
       'express',
       'fs',
       'fsevents',
