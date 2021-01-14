@@ -60,3 +60,4 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Add endpoint(s) for refreshing browser usage and browser support data in server state.
 - Make snowpack support '@olefjaerestad/hmr' without adding it to externalPackage.
 - HMR.
+- Make `npm run build` and `npm run start` work again.

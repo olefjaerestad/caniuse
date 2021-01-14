@@ -10,7 +10,7 @@ export default [
     input: 'src/server/index.ts',
     output: {
       dir: 'build/server',
-      format: 'es',
+      format: 'cjs',
     },
     plugins: [
       // TODO: Bundle imported node_modules in output?
@@ -19,7 +19,7 @@ export default [
         // We avoid final replacement in output bundle, since there are certain occurences we don't want to replace.
         '__IS_MOCK_MODE__': (id) => id === serverOutputFilename ? '__IS_MOCK_MODE__' : 'false',
         '__NODE_ENV__': (id) => id === serverOutputFilename ? '__NODE_ENV__' : JSON.stringify( 'production' ),
-        exclude: ['src/server/globals.ts', 'src/server/index.ts'],
+        exclude: ['src/common/globals.ts', 'src/server/index.ts'],
       }),
       typescript({
         tsconfig: './tsconfig.json'
