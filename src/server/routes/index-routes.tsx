@@ -14,7 +14,7 @@ export function indexRoutes(route: string, server: Express): Express {
   server.get(`${route}`, async (req: Request, res: Response) => {
     const { search } = req.query;
 
-    res.send(generateIndex(req.url, search.toString()));
+    res.send(generateIndex(req.url, search ? search.toString() : ''));
   });
   return server;
 }

@@ -2,6 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { IFunctionality } from '../../types/functionality-types';
 import { setFunctionalities } from '../../redux/functionality/functionality-actions';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useQueryParams } from '../../custom-hooks/useQueryParams';
 
 const minSearchLength = 3;
@@ -9,6 +10,7 @@ const minSearchLength = 3;
 export function SearchForm() {
   console.log({__IS_BROWSER__});
   const dispatch = useDispatch();
+  const myHistory = useHistory();
   const { search: searchParam } = useQueryParams();
   const [search, setSearch] = useState<string>(searchParam ? searchParam.toString() : '');
   const [error, setError] = useState<string>();
@@ -32,7 +34,12 @@ export function SearchForm() {
   
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    // TODO: Update 'search' query param.
+
+    // Update 'search' query param:
+    const searchParams = new URLSearchParams(myHistory.location.search);
+    searchParams.set('search', search);
+    myHistory.push(myHistory.location.pathname + '?' + searchParams.toString());
+    
     fetchFunctionalitySupport(search);
   }
 
