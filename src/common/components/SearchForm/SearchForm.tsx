@@ -8,7 +8,6 @@ import { useQueryParams } from '../../custom-hooks/useQueryParams';
 const minSearchLength = 3;
 
 export function SearchForm() {
-  console.log({__IS_BROWSER__});
   const dispatch = useDispatch();
   const myHistory = useHistory();
   const { search: searchParam } = useQueryParams();
