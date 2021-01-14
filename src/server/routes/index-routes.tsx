@@ -1,15 +1,20 @@
 import React from 'react';
-import { renderToString } from 'react-dom/server';
 import { App } from '../../common/App';
+import { createRootStore } from '../../common/redux/store';
 import { Express, Request, Response } from 'express';
+import { getSupportDataForMyAudience } from '../util/get-support-data';
 import { Provider } from 'react-redux';
+import { renderToString } from 'react-dom/server';
+import { setFunctionalities } from '../../common/redux/functionality/functionality-actions';
 // https://reactrouter.com/web/guides/server-rendering
 import { StaticRouter } from 'react-router-dom';
-import { store } from '../../common/redux/store';
+import { Store } from 'redux';
 
 export function indexRoutes(route: string, server: Express): Express {
   server.get(`${route}`, async (req: Request, res: Response) => {
-    res.send(generateIndex(req.url));
+    const { search } = req.query;
+
+    res.send(generateIndex(req.url, search.toString()));
   });
   return server;
 }
@@ -18,10 +23,13 @@ export function indexRoutes(route: string, server: Express): Express {
  * #app and renderToString must be on same line: 
  * https://github.com/facebook/react/issues/10879
  */
-function generateIndex(url: string) {
+function generateIndex(url: string, search: string) {
+  const store: Store = createRootStore();
+  store.dispatch(setFunctionalities(getSupportDataForMyAudience(search)));
+
   return /*html*/`
     <html>
-      ${generateHead()}
+      ${generateHead(store)}
       <body>
         <div id="app">${renderToString(
           <Provider store={store}>
@@ -35,18 +43,21 @@ function generateIndex(url: string) {
   `.trim();
 }
 
-function generateHead() {
+function generateHead(store: Store) {
   return /*html*/`
     <head>
       <title>Caniuse - based on browser usage</title>
-      ${generateHeadScripts()}
+      ${generateHeadScripts(store)}
     </head>
   `.trim();
 }
 
-function generateHeadScripts() {
+function generateHeadScripts(store: Store) {
   let scripts = /*html*/`
     <script src="static/client.js" type="module"></script>
+    <script>
+      window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\u003c')}
+    </script>
   `;
   /**
    * Can't use short circuiting, since rollup converts __NODE_ENV__ 

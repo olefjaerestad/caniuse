@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { IFunctionality } from '../../types/functionality-types';
 import { setFunctionalities } from '../../redux/functionality/functionality-actions';
 import { useDispatch } from 'react-redux';
@@ -13,15 +13,9 @@ export function SearchForm() {
   const [search, setSearch] = useState<string>(searchParam ? searchParam.toString() : '');
   const [error, setError] = useState<string>();
 
-  useEffect(() => {
-    if (search) {
-      fetchFunctionalitySupport(search);
-    }
-  }, []);
-
   function fetchFunctionalitySupport(searchParam: string) {
     if (searchParam.length < minSearchLength) {
-      return setError(`Search phrase be at least ${minSearchLength} characters.`);
+      return setError(`Search phrase must be at least ${minSearchLength} characters.`);
     }
 
     setError(null);

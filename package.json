@@ -11,6 +11,7 @@
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
     "typesafe-actions": "^5.1.0"
   },
   "description": "Check if you can use a certain CSS or JS feature on your site based on browser usage data from Google Analytics.",

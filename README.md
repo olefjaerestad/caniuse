@@ -61,3 +61,4 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Make snowpack support '@olefjaerestad/hmr' without adding it to externalPackage.
 - HMR.
 - Make `npm run build` and `npm run start` work again.
+- Make client side redux state use the redux state from server.

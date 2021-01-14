@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 
 export function FunctionalityList() {
   const functionalities = useSelector(getFunctionalities);
-  console.log('functionalities');
-  console.log(functionalities);
+  // console.log('functionalities');
+  // console.log(functionalities);
 
   return (
     <ul>

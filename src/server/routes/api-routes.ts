@@ -1,9 +1,7 @@
 import { Express, Request, Response } from 'express';
-import { filterSupportData } from '../caniuse-data/data';
-import { getBrowserSupport } from '../caniuse-data/util/caniuse-utils';
 import { getConfig } from '../util/config';
-import { getServerState } from '../server-state';
 import { setFullServerState } from '../server-state';
+import { getSupportDataForMyAudience } from '../util/get-support-data';
 
 const gaDomains = getConfig('googleAnalytics', 'domains');
 const { viewId: defaultViewId } = Object.values(gaDomains)[0];
@@ -18,25 +16,15 @@ export function apiRoutes(route: string, server: Express): Express {
       );
     }
 
-    const browserUsageData = getServerState('browserUsageData');
-    const browserSupportData = getServerState('browserSupportData');
-
-    if (!Object.keys(browserUsageData).length) {
-      return res.status(500).send(
-        'Server has no browserUsageData.'
+    try {
+      const supportDataForMyAudience = getSupportDataForMyAudience(search);
+      res.json(supportDataForMyAudience);
+    } catch(e) {
+      res.status(500).send(
+        e.message
       );
     }
 
-    if (!Object.keys(browserSupportData).length) {
-      return res.status(500).send(
-        'Server has no browserSupportData.'
-      );
-    }
-
-    const browserSupportDataFiltered = filterSupportData(browserSupportData, search);
-    const supportDataForMyAudience = getBrowserSupport(browserUsageData, browserSupportDataFiltered);
-
-    res.json(supportDataForMyAudience);
   });
 
   server.post(`${route}/updateserverstate`, async (req: Request, res: Response) => {
