@@ -1,4 +1,5 @@
 import React from 'react';
+import { FunctionalityListItem } from './FunctionalityListItem/FunctionalityListItem';
 import { getFunctionalities } from '../../redux/functionality/functionality-selectors';
 import { useSelector } from 'react-redux';
 
@@ -9,16 +10,8 @@ export function FunctionalityList() {
 
   return (
     <ul>
-      {Object.entries(functionalities).map(([name, info]) => {
-        return (
-          <li>
-            {name}<br/>
-            {info.title}<br/>
-            Meets critical threshold: {info.supportStatusCritical}<br/>
-            Meets non critical threshold: {info.supportStatusNonCritical}<br/>
-            <a href={info.url} title={`Read more about ${info.title} at caniuse.com`}>{info.url}</a>
-          </li>
-        );
+      {Object.entries(functionalities).map(([name, functionality]) => {
+        return <FunctionalityListItem name={name} functionality={functionality} />
       })}
     </ul>
   )

@@ -36,8 +36,8 @@
     "rollup-plugin-postcss": "^4.0.0",
     "snowpack": "^3.0.10",
     "tslib": "^2.0.3",
+    "typed-css-modules": "^0.6.5",
     "typescript": "^4.1.3",
-    "typescript-plugin-css-modules": "^3.0.1",
     "ws": "^7.4.2"
   },
   "homepage": "https://github.com/olefjaerestad/caniuse#readme",
@@ -55,7 +55,8 @@
   "scripts": {
     "build": "rm -rf build && npm run build:rollup && mv build/server/index.js build/server/index.cjs",
     "build:rollup": "IS_MOCK_MODE=false NODE_ENV=production rollup --config",
-    "dev": "rm -rf dist && concurrently \"npm run dev:watch\" \"npm run hmr:serve\" \"npm run dev:serve\"",
+    "css:generatetypings": "tcm -w src",
+    "dev": "rm -rf dist && concurrently \"npm run css:generatetypings\" \"npm run dev:watch\" \"npm run hmr:serve\" \"npm run dev:serve\"",
     "dev:mock": "rm -rf dist && concurrently \"IS_MOCK_MODE=true npm run dev:watch\" \"IS_MOCK_MODE=true npm run dev:serve\"",
     "dev:serve": "NODE_ENV=development nodemon --experimental-modules --experimental-specifier-resolution=node scripts/dev.js",
     "dev:watch": "snowpack build --watch",

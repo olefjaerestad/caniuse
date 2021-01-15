@@ -15,8 +15,12 @@ export default [
     },
     plugins: [
       // TODO: Bundle imported node_modules in output?
-      // Dont output CSS in server bundle:
-      ignoreExtensionsRollupPlugin(['css']),
+      // Dont output regular CSS in server bundle...
+      ignoreExtensionsRollupPlugin({
+        extensions: ['.css']
+      }),
+      // ...But have support for CSS modules (required for generating correct classNames in markup)
+      postcss(),
       replace({
         // Replace global vars to allow for more efficient tree shaking/dead code removal.
         // We avoid final replacement in output bundle, since there are certain occurences we don't want to replace.
@@ -37,9 +41,10 @@ export default [
     },
     plugins: [
       // Add support for import './style.css'
-      // TODO: Extract CSS to separate file?
-      // Ref https://florian.ec/blog/rollup-scss-css-modules/
-      postcss(),
+      postcss({
+        // Extract CSS to separate file, ref https://florian.ec/blog/rollup-scss-css-modules/
+        extract: true,
+      }),
       replace({
         // Fixes https://github.com/rollup/rollup/issues/487
         'process.env.NODE_ENV': JSON.stringify( 'production' )
@@ -57,10 +62,24 @@ export default [
 ]
 
 /**
+ * Ignore specific file extensions in the Rollup pipeline.
+ * 
+ * Usage:
+ * ignoreExtensionsRollupPlugin({
+ *    extensions: ['.css']
+ * })
+ * 
+ * Note that by passing '.css' to extensions, you're ignoring 
+ * _only_ files with the following filename structure: style.css.
+ * mycomponent.module.css will not be ignored. 
+ * To ignore that, add '.module.css' to extensions.
+ * In other words, everything in the filename, starting from the first dot,
+ * has to match the extension in extensions in order to be ignored.
+ * 
  * Inspired by:
  * https://github.com/home-assistant/frontend/blob/dev/build-scripts/rollup-plugins/ignore-plugin.js
  */
-function ignoreExtensionsRollupPlugin (extensions = []) {
+function ignoreExtensionsRollupPlugin ({extensions = []}) {
   if (extensions.length === 0) {
     return {
       name: "ignore",
@@ -70,7 +89,10 @@ function ignoreExtensionsRollupPlugin (extensions = []) {
   return {
     name: "ignore",
     load(id) {
-      return extensions.some((extension) => id.endsWith(extension))
+      const currentFileExtension = id.substring(id.indexOf('.'));
+      const doIgnore = extensions.some((extension) => extension === currentFileExtension);
+
+      return doIgnore
         ? {
             code: "",
           }

@@ -5,12 +5,6 @@
     "resolveJsonModule": true,
     "jsx": "react",
     "module": "ES2020",
-    "plugins": [
-      {
-        "name": "typescript-plugin-css-modules",
-        "options": { "classnameTransform": "asIs" }
-      }
-    ],
     "target": "ES2015",
     "noUnusedLocals": true,
     "typeRoots": [

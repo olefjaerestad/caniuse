@@ -1,9 +1,10 @@
-:global(:root) {
-  --color-white: hsla(0, 0%, 100%, 1);
+:root {
   --color-background: hsla(210, 100%, 15%, 1);
+  --color-black: hsla(0, 0%, 0%, 1);
+  --color-white: hsla(0, 0%, 100%, 1);
 }
 
-:global(body) {
+body {
   color: var(--color-white);
   background-color: var(--color-background);
 }

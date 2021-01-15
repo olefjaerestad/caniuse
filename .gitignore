@@ -117,3 +117,6 @@ mock
 
 # System files
 .DS_Store
+
+# TypeScript CSS declaration files added by typed-css-modules
+*.css.d.ts

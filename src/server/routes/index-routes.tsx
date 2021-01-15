@@ -48,6 +48,7 @@ function generateHead(store: Store) {
     <head>
       <title>Caniuse - based on browser usage</title>
       ${generateHeadScripts(store)}
+      ${generateHeadStyles()}
     </head>
   `.trim();
 }
@@ -71,4 +72,14 @@ function generateHeadScripts(store: Store) {
     `;
   }
   return scripts.trim();
+}
+
+function generateHeadStyles() {
+  let styles = /*html*/``;
+  if (__NODE_ENV__ === 'production') {
+    styles += /*html*/`
+      <link rel="stylesheet" href="static/client.css">
+    `;
+  }
+  return styles.trim();
 }
