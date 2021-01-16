@@ -1,9 +1,9 @@
-import { IFunctionality } from "../../common/types/functionality-types";
+import { IFeatures } from "../../common/types/feature-types";
 import { filterSupportData } from "../caniuse-data/data";
 import { getBrowserSupport } from "../caniuse-data/util/caniuse-utils";
 import { getServerState } from "../server-state";
 
-export function getSupportDataForMyAudience(featureSearch: string): IFunctionality {
+export function getSupportDataForMyAudience(featureSearch: string): IFeatures {
   const browserUsageData = getServerState('browserUsageData');
   const browserSupportData = getServerState('browserSupportData');
 

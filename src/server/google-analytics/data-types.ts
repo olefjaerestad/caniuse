@@ -20,21 +20,21 @@ export type TBrowserUsageData = {
 // TODO: Put these numbers in config.json?
 export type TBrowserUsageDataFilter = {
   [key in TBrowser]?: {
-    criticalFunctionality: {
+    criticalFeatures: {
       minUsersPercentage: number;
     }
-    nonCriticalFunctionality: {
+    nonCriticalFeatures: {
       minUsersPercentage: number;
     }
   }
 }
 
 export interface IBrowserUsageDataByCriticality {
-  criticalFunctionality: TBrowserUsageData;
-  nonCriticalFunctionality: TBrowserUsageData;
+  criticalFeatures: TBrowserUsageData;
+  nonCriticalFeatures: TBrowserUsageData;
 }
 
 export interface IBrowserUsageDataByCriticalityRaw {
-  criticalFunctionality: analyticsreporting_v4.Schema$GetReportsResponse;
-  nonCriticalFunctionality: analyticsreporting_v4.Schema$GetReportsResponse;
+  criticalFeatures: analyticsreporting_v4.Schema$GetReportsResponse;
+  nonCriticalFeatures: analyticsreporting_v4.Schema$GetReportsResponse;
 }

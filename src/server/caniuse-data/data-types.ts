@@ -7,13 +7,13 @@ import {
   TCanIUseSecurityCategory, 
   TCanIUseSvgCategory,
   TCanIUseAgentName,
-  ICanIUseFunctionality,
+  ICanIUseFeature,
   TCanIUseBrowserSupportString
 } from '../../common/types/caniuse-types';
 
 export {
   TCanIUseAgentName,
-  ICanIUseFunctionality,
+  ICanIUseFeature,
   TCanIUseBrowserSupportString
 };
 
@@ -45,7 +45,7 @@ export interface ICanIUseData {
     SVG: TCanIUseSvgCategory[];
   };
   data: {
-    [functionality: string]: ICanIUseFunctionality;
+    [feature: string]: ICanIUseFeature;
   }
   eras: {
     'e-3': '3 versions back';

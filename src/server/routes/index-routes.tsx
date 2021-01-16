@@ -5,7 +5,7 @@ import { Express, Request, Response } from 'express';
 import { getSupportDataForMyAudience } from '../util/get-support-data';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
-import { setFunctionalities } from '../../common/redux/functionality/functionality-actions';
+import { setFeatures } from '../../common/redux/feature/feature-actions';
 // https://reactrouter.com/web/guides/server-rendering
 import { StaticRouter } from 'react-router-dom';
 import { Store } from 'redux';
@@ -25,7 +25,7 @@ export function indexRoutes(route: string, server: Express): Express {
  */
 function generateIndex(url: string, search: string) {
   const store: Store = createRootStore();
-  store.dispatch(setFunctionalities(getSupportDataForMyAudience(search)));
+  store.dispatch(setFeatures(getSupportDataForMyAudience(search)));
 
   return /*html*/`
     <html>

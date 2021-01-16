@@ -1,10 +1,10 @@
 import { ICanIUseData } from '../data-types';
 import { IBrowserUsageDataByCriticality } from '../../google-analytics/data-types';
 import { 
-  IFunctionality, 
+  IFeatures, 
   TBrowserMapping, 
-  TFunctionalityFirstSupportedIn, 
-  TFunctionalitySupportedInLatestBrowserVersion, 
+  TFeatureFirstSupportedIn, 
+  TFeatureSupportedInLatestBrowserVersion, 
   TSupportStatus 
 } from './caniuse-utils-types';
 
@@ -34,17 +34,17 @@ const gaBrowserNameToCanIUseBrowserName: TBrowserMapping = {
 export function getBrowserSupport(
   browserData: IBrowserUsageDataByCriticality, 
   supportData: ICanIUseData['data']
-): IFunctionality
+): IFeatures
 {
-  const browserUsageDataCritical = Object.entries(browserData.criticalFunctionality);
-  const browserUsageDataNonCritical = Object.entries(browserData.nonCriticalFunctionality);
+  const browserUsageDataCritical = Object.entries(browserData.criticalFeatures);
+  const browserUsageDataNonCritical = Object.entries(browserData.nonCriticalFeatures);
 
-  // Build IFunctionality object
-  const functionality = Object.entries(supportData).reduce((acc: IFunctionality, [functionalityName, functionalityData]) => {
-    const firstFullySupportedIn: TFunctionalityFirstSupportedIn = {};
-    const firstPartiallySupportedIn: TFunctionalityFirstSupportedIn = {};
-    const supportedInLatestBrowserVersion: TFunctionalitySupportedInLatestBrowserVersion = {};
-    const browsers = Object.entries(functionalityData.stats);
+  // Build IFeatures object
+  const features = Object.entries(supportData).reduce((acc: IFeatures, [featureName, featureData]) => {
+    const firstFullySupportedIn: TFeatureFirstSupportedIn = {};
+    const firstPartiallySupportedIn: TFeatureFirstSupportedIn = {};
+    const supportedInLatestBrowserVersion: TFeatureSupportedInLatestBrowserVersion = {};
+    const browsers = Object.entries(featureData.stats);
     let supportStatusCritical: TSupportStatus[keyof TSupportStatus] = 'supported';
     let supportStatusNonCritical: TSupportStatus[keyof TSupportStatus] = 'supported';
     let supportStatusByBrowserCritical: TSupportStatus = {};
@@ -57,7 +57,7 @@ export function getBrowserSupport(
       supportedInLatestBrowserVersion[browserName] = Array.from(versionsMap).pop()[1];
       
       for (const [version, supportStatus] of versionsIterator) {
-        // Note: This logic will break if functionality is supported in e.g. v44 but not in v45,
+        // Note: This logic will break if feature is supported in e.g. v44 but not in v45,
         // which is why we have `supportedInLatestBrowserVersion`.
         // e.g. https://caniuse.com/svg-fonts
         if (supportStatus === 'y' && !firstFullySupportedIn[browserName]) {
@@ -74,7 +74,7 @@ export function getBrowserSupport(
       }
     }
 
-    // Find whether each of our users' browsers support critical functionality. 
+    // Find whether each of our users' browsers support critical features. 
     for (let i = 0; i < browserUsageDataCritical.length; ++i) {
       const browserName = browserUsageDataCritical[i][0];
       const usageData = browserUsageDataCritical[i][1];
@@ -89,7 +89,7 @@ export function getBrowserSupport(
       });
     }
 
-    // Find whether each of our users' browsers support non-critical functionality. 
+    // Find whether each of our users' browsers support non-critical features. 
     for (let i = 0; i < browserUsageDataNonCritical.length; ++i) {
       const browserName = browserUsageDataNonCritical[i][0];
       const usageData = browserUsageDataNonCritical[i][1];
@@ -104,7 +104,7 @@ export function getBrowserSupport(
       });
     }
 
-    // Find whether critical functionality is supported by all of our users' browsers. 
+    // Find whether critical features are supported by all of our users' browsers. 
     // This is the meat of our app.
     for (let i = 0; i < Object.values(supportStatusByBrowserCritical).length; ++i) {
       const supportStatusForBrowser = Object.values(supportStatusByBrowserCritical)[i];
@@ -117,7 +117,7 @@ export function getBrowserSupport(
         break;
       }
     }
-    // Find whether non-critical functionality is supported by all of our users' browsers. 
+    // Find whether non-critical features are supported by all of our users' browsers. 
     for (let i = 0; i < Object.values(supportStatusByBrowserNonCritical).length; ++i) {
       const supportStatusForBrowser = Object.values(supportStatusByBrowserNonCritical)[i];
       if (supportStatusForBrowser === 'not_supported') {
@@ -130,29 +130,29 @@ export function getBrowserSupport(
       }
     }
 
-    acc[functionalityName] = {
-      description: functionalityData.description,
+    acc[featureName] = {
+      description: featureData.description,
       firstFullySupportedIn,
       firstPartiallySupportedIn,
-      notesByNum: functionalityData.notes_by_num,
+      notesByNum: featureData.notes_by_num,
       supportedInLatestBrowserVersion,
       supportStatusByBrowserCritical,
       supportStatusByBrowserNonCritical,
       supportStatusCritical,
       supportStatusNonCritical,
-      title: functionalityData.title,
-      url: `https://caniuse.com/${functionalityName}`,
+      title: featureData.title,
+      url: `https://caniuse.com/${featureName}`,
     }
 
     return acc;
   }, {});
 
-  return functionality;
+  return features;
 }
 
 /**
  * Given an audience browser version (i.e. the minimum version your web site audience uses)
- * and versions that partially and fully supports a functionality, returns a support status.
+ * and versions that partially and fully supports a feature, returns a support status.
  */
 function getSupportStatus(
   {

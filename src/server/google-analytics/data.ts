@@ -84,33 +84,33 @@ export function filterBrowserUsageData(data: analyticsreporting_v4.Schema$GetRep
   // We're modifying deeply nested properties, so we need a new reference:
   const dataCopy: analyticsreporting_v4.Schema$GetReportsResponse = JSON.parse(JSON.stringify(data));
   const totalUsers = Number(data.reports[0].data.totals[0].values[0]);
-  const criticalFunctionalityData: IBrowserUsageDataByCriticalityRaw['criticalFunctionality'] = dataCopy;
-  const nonCriticalFunctionalityData: IBrowserUsageDataByCriticalityRaw['nonCriticalFunctionality'] = dataCopy;
+  const criticalFeaturesData: IBrowserUsageDataByCriticalityRaw['criticalFeatures'] = dataCopy;
+  const nonCriticalFeaturesData: IBrowserUsageDataByCriticalityRaw['nonCriticalFeatures'] = dataCopy;
 
   // Empty rows before we populate them with only the rows we want.
-  criticalFunctionalityData.reports[0].data.rows = [];
-  nonCriticalFunctionalityData.reports[0].data.rows = [];
+  criticalFeaturesData.reports[0].data.rows = [];
+  nonCriticalFeaturesData.reports[0].data.rows = [];
   data.reports[0].data.rows.forEach((row: analyticsreporting_v4.Schema$ReportRow) => {
     const browser = row.dimensions[0];
     const usersPercentage = Number(row.metrics[0].values[0]) / totalUsers * 100;
     const minUsersPercentageCritical = filters[browser] 
-      ? filters[browser].criticalFunctionality.minUsersPercentage 
-      : Object.values(filters)[0].criticalFunctionality.minUsersPercentage;
+      ? filters[browser].criticalFeatures.minUsersPercentage 
+      : Object.values(filters)[0].criticalFeatures.minUsersPercentage;
     const minUsersPercentageNonCritical = filters[browser] 
-      ? filters[browser].nonCriticalFunctionality.minUsersPercentage 
-      : Object.values(filters)[0].nonCriticalFunctionality.minUsersPercentage;
+      ? filters[browser].nonCriticalFeatures.minUsersPercentage 
+      : Object.values(filters)[0].nonCriticalFeatures.minUsersPercentage;
 
     if (usersPercentage >= minUsersPercentageCritical) {
-      criticalFunctionalityData.reports[0].data.rows.push(row);
+      criticalFeaturesData.reports[0].data.rows.push(row);
     }
     if (usersPercentage >= minUsersPercentageNonCritical) {
-      nonCriticalFunctionalityData.reports[0].data.rows.push(row);
+      nonCriticalFeaturesData.reports[0].data.rows.push(row);
     }
   });
 
   return {
-    criticalFunctionality: criticalFunctionalityData,
-    nonCriticalFunctionality: nonCriticalFunctionalityData,
+    criticalFeatures: criticalFeaturesData,
+    nonCriticalFeatures: nonCriticalFeaturesData,
   }
 }
 
@@ -120,8 +120,8 @@ export function filterBrowserUsageData(data: analyticsreporting_v4.Schema$GetRep
  */
 export function formatBrowserUsageData(data: IBrowserUsageDataByCriticalityRaw): IBrowserUsageDataByCriticality {
   const result: IBrowserUsageDataByCriticality = {
-    criticalFunctionality: {},
-    nonCriticalFunctionality: {},
+    criticalFeatures: {},
+    nonCriticalFeatures: {},
   }
 
   Object.keys(result).forEach((criticality: keyof IBrowserUsageDataByCriticality) => {

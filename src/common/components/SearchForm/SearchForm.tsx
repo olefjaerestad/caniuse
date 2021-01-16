@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { IFunctionality } from '../../types/functionality-types';
-import { setFunctionalities } from '../../redux/functionality/functionality-actions';
+import { IFeatures } from '../../types/feature-types';
+import { setFeatures } from '../../redux/feature/feature-actions';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useQueryParams } from '../../custom-hooks/useQueryParams';
@@ -14,7 +14,7 @@ export function SearchForm() {
   const [search, setSearch] = useState<string>(searchParam ? searchParam.toString() : '');
   const [error, setError] = useState<string>();
 
-  function fetchFunctionalitySupport(searchParam: string) {
+  function fetchFeatureSupport(searchParam: string) {
     if (searchParam.length < minSearchLength) {
       return setError(`Search phrase must be at least ${minSearchLength} characters.`);
     }
@@ -23,7 +23,7 @@ export function SearchForm() {
 
     fetch(`${location.origin}/api/caniuse?search=${searchParam}`)
       .then((res: Response) => res.json())
-      .then((res: IFunctionality) => dispatch(setFunctionalities(res)))
+      .then((res: IFeatures) => dispatch(setFeatures(res)))
       .catch((err: Error) => setError('Something went wrong with the search.'));
   }
 
@@ -39,12 +39,12 @@ export function SearchForm() {
     searchParams.set('search', search);
     myHistory.push(myHistory.location.pathname + '?' + searchParams.toString());
     
-    fetchFunctionalitySupport(search);
+    fetchFeatureSupport(search);
   }
 
   return (
     <form action="" onSubmit={handleSubmit}>
-      <label htmlFor="search">Functionality</label>
+      <label htmlFor="search">Feature</label>
       <input 
         minLength={minSearchLength}
         type="search"

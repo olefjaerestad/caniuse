@@ -6,8 +6,8 @@ export type TBrowserMapping = {
 }
 
 export {
-  TFunctionalityFirstSupportedIn,
-  TFunctionalitySupportedInLatestBrowserVersion,
+  TFeatureFirstSupportedIn,
+  TFeatureSupportedInLatestBrowserVersion,
   TSupportStatus,
-  IFunctionality
-} from '../../../common/types/functionality-types';
+  IFeatures
+} from '../../../common/types/feature-types';

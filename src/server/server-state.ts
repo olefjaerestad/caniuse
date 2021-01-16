@@ -26,26 +26,26 @@ const googleAnalytics = getConfig('googleAnalytics');
 const { days } = googleAnalytics.params;
 const filters: TBrowserUsageDataFilter = {
   'Chrome': {
-    criticalFunctionality: {
+    criticalFeatures: {
       minUsersPercentage: 1,
     },
-    nonCriticalFunctionality: {
+    nonCriticalFeatures: {
       minUsersPercentage: 5,
     },
   },
   'Safari': {
-    criticalFunctionality: {
+    criticalFeatures: {
       minUsersPercentage: 1,
     },
-    nonCriticalFunctionality: {
+    nonCriticalFeatures: {
       minUsersPercentage: 5,
     },
   },
   'Firefox': {
-    criticalFunctionality: {
+    criticalFeatures: {
       minUsersPercentage: 1,
     },
-    nonCriticalFunctionality: {
+    nonCriticalFeatures: {
       minUsersPercentage: 5,
     },
   },

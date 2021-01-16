@@ -29,7 +29,7 @@ export type TCanIUseAgentName =
 
 export type TCanIUseBrowserSupportString = 'n' | 'y' | 'u' | 'a #1' | 'a #2' | 'n #1' | 'n #2' | string;
 
-export interface ICanIUseFunctionality {
+export interface ICanIUseFeature {
   // categories: string[];
   categories: keyof (
     TCanIUseCssCategory | 

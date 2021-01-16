@@ -1,5 +1,5 @@
 import { combineReducers, createStore } from 'redux';
-import { functionalityReducer } from './functionality/functionality-reducer';
+import { featureReducer } from './feature/feature-reducer';
 import { StateType } from 'typesafe-actions';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
@@ -25,6 +25,6 @@ export const store = createRootStore();
 
 function createRootReducer() {
   return combineReducers({
-    functionality: functionalityReducer
+    feature: featureReducer
   })
 }

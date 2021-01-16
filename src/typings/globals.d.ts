@@ -9,8 +9,8 @@ declare global {
 
   interface Window {
     __PRELOADED_STATE__: {
-      functionality: {
-        functionalities: {[key: string]: any}
+      feature: {
+        features: {[key: string]: any}
       }
     };
   }

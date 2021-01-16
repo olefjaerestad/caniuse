@@ -41,11 +41,10 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Prod files (bundled, production ready files) are located in `build`. These are compiled from `src`.
 
 ## Todo
-- Rename 'functionality' to 'feature' across the codebase.
 - Inline TODOs.
 - Write tests.
 - Fix `ERR_MODULE_NOT_FOUND`on `npm run dev` by only running nodemon _after_ snowpack has finished transpiling. Side note: `nodemon` doesnt seem to restart automatically if provided a config. Update: It does, just remember to use a trailing slash in the watched folders: `"dist/server/"`.
-- getSupportDataForMyAudience: return empty object instead of all functionalities if search param is empty?
+- getSupportDataForMyAudience: return empty object instead of all features if search param is empty?
 
 ## In progress
 
@@ -65,3 +64,4 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Make `npm run build` and `npm run start` work again.
 - Make client side redux state use the redux state from server.
 - Make CSS work without JS in browser for prod.
+- Rename 'functionality' to 'feature' across the codebase.
