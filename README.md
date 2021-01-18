@@ -45,6 +45,7 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Write tests.
 - Fix `ERR_MODULE_NOT_FOUND`on `npm run dev` by only running nodemon _after_ snowpack has finished transpiling. Side note: `nodemon` doesnt seem to restart automatically if provided a config. Update: It does, just remember to use a trailing slash in the watched folders: `"dist/server/"`.
 - getSupportDataForMyAudience: return empty object instead of all features if search param is empty?
+- Add dropdown menu for selecting which website to fetch GA data from.
 
 ## In progress
 

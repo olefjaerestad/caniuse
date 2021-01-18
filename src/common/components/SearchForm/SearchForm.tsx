@@ -28,7 +28,7 @@ export function SearchForm() {
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    setSearch(e.target.value);
+    setSearch(e.target.value.replace(/</g, '\\u003c'));
   }
   
   function handleSubmit(e: FormEvent) {

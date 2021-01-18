@@ -12,7 +12,8 @@ import { Store } from 'redux';
 
 export function indexRoutes(route: string, server: Express): Express {
   server.get(`${route}`, async (req: Request, res: Response) => {
-    const { search } = req.query;
+    let { search } = req.query;
+    search = search ? search.toString().replace(/</g, '\\u003c') : null;
 
     res.send(generateIndex(req.url, search ? search.toString() : ''));
   });

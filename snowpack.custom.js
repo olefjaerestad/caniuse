@@ -1,7 +1,7 @@
 /**
- * Once the Snowpack JS API is fully documented and ready,
+ * TODO: Once the Snowpack JS API is fully documented and ready,
  * the goal is to use this file in `npm run dev`, so we can start/restart 
- * the server only _after_ snowpack has transpiled our code.
+ * the web server only _after_ snowpack has transpiled our code.
  * For now, we're using the CLI API with a snowpack.config.js, which
  * gives a `ERR_MODULE_NOT_FOUND` before the files are transpiled, but
  * eventually succeeds. The goal of eventually using this file is to 

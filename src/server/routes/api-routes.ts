@@ -8,7 +8,8 @@ const { viewId: defaultViewId } = Object.values(gaDomains)[0];
 
 export function apiRoutes(route: string, server: Express): Express {
   server.get(`${route}/caniuse`, async (req: Request, res: Response) => {
-    const { search } = req.query;
+    let { search } = req.query;
+    search = search ? search.toString().replace(/</g, '\\u003c') : null;
 
     if (!search || typeof search !== 'string' || search.length < 3) {
       return res.status(400).send(

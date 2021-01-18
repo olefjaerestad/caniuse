@@ -10,9 +10,9 @@ export function useQueryParams(): {[key: string]: string | string[]} {
     }
 
     if (Array.isArray(params[key])) {
-      params[key].push(val);
+      params[key].push(val.replace(/</g, '\\u003c'));
     } else {
-      params[key] = val;
+      params[key] = val.replace(/</g, '\\u003c');
     }
   }
   
