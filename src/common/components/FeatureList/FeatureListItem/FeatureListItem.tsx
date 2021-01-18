@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './FeatureListItem.module.css';
-import { IFeatures } from '../../../types/feature-types';
+import { IFeature } from '../../../types/feature-types';
 
 interface IProps {
   name: string,
-  feature: IFeatures['feature'],
+  feature: IFeature,
 }
 
 export function FeatureListItem({name, feature}: IProps) {

@@ -14,10 +14,11 @@ export type TSupportStatus = {
 }
 
 export interface IFeatures {
-  [feature: string]: Pick<ICanIUseFeature, 'description' | 'title'> & IFeature;
+  [feature: string]: IFeature;
 }
 
 export interface IFeature {
+  description: ICanIUseFeature['description'],
   firstFullySupportedIn: TFeatureFirstSupportedIn;
   firstPartiallySupportedIn: TFeatureFirstSupportedIn;
   notesByNum: ICanIUseFeature['notes_by_num'];
@@ -26,5 +27,6 @@ export interface IFeature {
   supportStatusByBrowserNonCritical: TSupportStatus;
   supportStatusCritical: TSupportStatus[keyof TSupportStatus];
   supportStatusNonCritical: TSupportStatus[keyof TSupportStatus];
+  title: ICanIUseFeature['title'],
   url: string;
 }
