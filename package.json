@@ -57,7 +57,7 @@
     "build:rollup": "IS_MOCK_MODE=false NODE_ENV=production rollup --config",
     "css:generatetypings": "tcm -w src",
     "dev": "rm -rf dist && concurrently \"npm run css:generatetypings\" \"npm run dev:watch\" \"npm run hmr:serve\" \"npm run dev:serve\"",
-    "dev:mock": "rm -rf dist && concurrently \"IS_MOCK_MODE=true npm run dev:watch\" \"IS_MOCK_MODE=true npm run dev:serve\"",
+    "dev:mock": "rm -rf dist && concurrently \"npm run css:generatetypings\" \"IS_MOCK_MODE=true npm run dev:watch\" \"npm run hmr:serve\" \"IS_MOCK_MODE=true npm run dev:serve\"",
     "dev:serve": "NODE_ENV=development nodemon --experimental-modules --experimental-specifier-resolution=node scripts/dev.js",
     "dev:watch": "snowpack build --watch",
     "hmr:serve": "node hmr-server.js",
