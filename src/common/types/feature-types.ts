@@ -6,7 +6,7 @@ export type TFeatureFirstSupportedIn = {
 }
 
 export type TFeatureSupportedInLatestBrowserVersion = {
-  [agentName in TCanIUseAgentName]?: TSupportStatus;
+  [agentName in TCanIUseAgentName]?: string;
 }
 
 export type TSupportStatus = {

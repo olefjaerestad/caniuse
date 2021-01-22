@@ -1,0 +1,20 @@
+.list {
+  background-color: var(--color-white);
+  padding-left: 0;
+}
+
+.list > li {
+  display: grid;
+  grid-template-columns: 2fr repeat(2, 1fr);
+  grid-template-areas: 
+    'info info info'
+    'details details details';
+}
+
+.list > li > * {
+  padding: 10px;
+}
+
+.list__header {
+  font-variation-settings: 'wght' 500;
+}

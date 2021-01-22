@@ -5,6 +5,10 @@ Check if you can use a certain CSS or JS feature on your site based on browser u
 A node.js environment that supports:
 - [Dynamic imports](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#dynamic_imports)
 
+A browser environment that supports:
+- [CSS grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)
+- [Variable fonts](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fonts/Variable_Fonts_Guide)
+
 ## Prerequisites
 1. If you haven't already, you need to create a Google Analytics view and include its script on your web site.
 2. Create service account credentials at [https://console.developers.google.com/apis/credentials](https://console.developers.google.com/apis/credentials)
@@ -41,6 +45,7 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Prod files (bundled, production ready files) are located in `build`. These are compiled from `src`.
 
 ## Todo
+- Theming.
 - Inline TODOs.
 - Write tests.
 - Fix `ERR_MODULE_NOT_FOUND`on `npm run dev` by only running nodemon _after_ snowpack has finished transpiling. Side note: `nodemon` doesnt seem to restart automatically if provided a config. Update: It does, just remember to use a trailing slash in the watched folders: `"dist/server/"`.

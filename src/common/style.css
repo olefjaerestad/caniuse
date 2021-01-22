@@ -1,10 +1,20 @@
 :root {
-  --color-background: hsla(210, 100%, 15%, 1);
-  --color-black: hsla(0, 0%, 0%, 1);
+  --color-background: rgb(240, 238, 226);
   --color-white: hsla(0, 0%, 100%, 1);
 }
 
+@font-face {
+  font-family: 'roboto';
+  src: url('/static/fonts/roboto-slab-variable.ttf') format('truetype');
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  color: var(--color-white);
+  font-family: 'roboto';
+  font-variation-settings: 'wght' 300;
   background-color: var(--color-background);
+  margin: 0;
 }
