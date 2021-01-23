@@ -1,0 +1,23 @@
+table {
+  width: 100%;
+  border-radius: var(--border-radius-small);
+  border-collapse: collapse;
+  box-shadow: 2px 2px 7px hsla(var(--color-shadow), .2);
+  overflow: hidden;
+}
+
+thead {
+  font-variation-settings: 'wght' 500;
+  background-color: hsl(var(--color-primary));
+}
+
+tbody > tr:nth-of-type(odd) {
+  background-color: hsla(var(--color-foreground), .6);
+}
+tbody > tr:nth-of-type(even) {
+  background-color: hsla(var(--color-foreground), .9);
+}
+
+td {
+  padding: .9rem;
+}

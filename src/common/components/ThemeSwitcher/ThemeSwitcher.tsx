@@ -10,6 +10,7 @@ const cssMappings: ICssPropertiesAlternateMapping = {
   '--color-primary': '--color-primary-alternate',
   '--color-shadow': '--color-shadow-alternate',
   '--color-text': '--color-text-alternate',
+  '--color-anchor': '--color-anchor-alternate',
 }
 
 function switchCssValues(propertyMapping: ICssPropertiesAlternateMapping) {

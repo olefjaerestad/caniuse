@@ -6,9 +6,20 @@
 .title:focus {
   font-variation-settings: 'wght' 600;
 }
+.title h2 {
+  font-size: inherit;
+  margin: inherit;
+}
 
 .details {
   background-color: hsl(var(--color-background));
+  padding-bottom: 50px !important;
   border-left: 5px solid hsl(var(--color-primary));
   grid-area: details;
+}
+.details > :first-child {
+  margin-top: 0;
+}
+.details > :last-child {
+  margin-bottom: 0;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Index.module.css';
-import { FeatureList } from '../FeatureList/FeatureList';
+import { FeatureTable } from '../FeatureTable/FeatureTable';
 import { SearchForm } from '../SearchForm/SearchForm';
 import { ThemeSwitcher } from '../ThemeSwitcher/ThemeSwitcher';
 
@@ -13,7 +13,7 @@ export function Index() {
           <ThemeSwitcher />
         </div>
         <SearchForm />
-        <FeatureList />
+        <FeatureTable />
       </div>
     </>
   );

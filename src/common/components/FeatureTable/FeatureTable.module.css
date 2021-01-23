@@ -1,0 +1,12 @@
+.table {
+  margin-bottom: var(--gutter-small);
+}
+
+.table > thead > tr,
+.table > tbody > tr {
+  display: grid;
+  grid-template-columns: 2fr repeat(2, 1fr);
+  grid-template-areas: 
+    'info info info'
+    'details details details';
+}

@@ -1,3 +1,8 @@
+@import './common/css/_grid.css';
+@import './common/css/_anchor.css';
+@import './common/css/_table.css';
+@import './common/css/_list.css';
+
 :root {
   /**
    * Usage: hsl(var(--color-background)), hsla(var(--color-background), .5) 
@@ -11,12 +16,14 @@
   --color-primary-alternate: 150, 80%, 30%;
   --color-text: 0, 0%, 0%;
   --color-text-alternate: 0, 0%, 100%;
+  --color-anchor: 30, 80%, 50%;
+  --color-anchor-alternate: 150, 80%, 45%;
   --color-shadow: 0, 0%, 0%;
   --color-shadow-alternate: 0, 0%, 0%;
 
   --border-radius-base: 10px;
   --border-radius-small: var(--border-radius-base);
-  
+
   --gutter-base: 1rem;
   --gutter-small: var(--gutter-base);
 }
@@ -27,6 +34,8 @@
 }
 
 * {
+  font-weight: initial; /* Using font-variation-settings: 'wght' 300; instead */
+  word-break: break-word;
   box-sizing: border-box;
 }
 

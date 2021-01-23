@@ -1,0 +1,15 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+.grid--spacing {
+  margin-left: calc(var(--gutter-small) * -1);
+  margin-right: calc(var(--gutter-small) * -1);
+}
+.grid--spacing > * {
+  padding: var(--gutter-small);
+}
+
+.cell--6 {
+  grid-column: span 6;
+}
