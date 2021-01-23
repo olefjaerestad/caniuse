@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 export function FeatureList() {
   const features = useSelector(getFeatures);
 
+  // TODO: Add sorting
   return (
     <ul className={styles.list}>
       <li className={styles.list__header}>

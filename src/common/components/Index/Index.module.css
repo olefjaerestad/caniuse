@@ -2,3 +2,14 @@
   max-width: 960px;
   margin: 0 auto;
 }
+
+.header {
+  padding: var(--gutter-small);
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.title {
+  margin-top: 0;
+}

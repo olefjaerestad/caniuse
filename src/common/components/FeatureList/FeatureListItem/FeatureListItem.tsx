@@ -34,8 +34,13 @@ export function FeatureListItem({name, feature}: IProps) {
 
   // TODO: Make an expand button that runs handleClick
   return (
-    <li className={styles.item} id={`feature--${name}`} tabIndex={0} onClick={handleClick} onKeyUp={handleClick}>
-      <span>{title}</span>
+    <li id={`feature--${name}`}>
+      <span 
+        className={styles.title} 
+        tabIndex={0} 
+        onClick={handleClick} 
+        onKeyUp={handleClick}
+      >{title}</span>
       <span>{supportStatusCritical}</span>
       <span>{supportStatusNonCritical}</span>
       {open && <div className={styles.details}>
@@ -126,9 +131,11 @@ export function FeatureListItem({name, feature}: IProps) {
         {Object.keys(notesByNum).length > 0 &&
           <>
             <p>Notes:</p>
-            {Object.entries(notesByNum).map(([num, note]) => {
-              return <li id={`feature--${name}--note--${num}`}>{num}: {note}</li>;
-            })}
+            <ol>
+              {Object.entries(notesByNum).map(([num, note]) => {
+                return <li id={`feature--${name}--note--${num}`}>{note}</li>;
+              })}
+            </ol>
           </>
         }
 

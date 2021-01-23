@@ -1,4 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
+import styles from './SearchForm.module.css';
 import { IFeatures } from '../../types/feature-types';
 import { setFeatures } from '../../redux/feature/feature-actions';
 import { useDispatch } from 'react-redux';
@@ -43,7 +44,7 @@ export function SearchForm() {
   }
 
   return (
-    <form action="" onSubmit={handleSubmit}>
+    <form className={styles.form} action="" onSubmit={handleSubmit}>
       <label htmlFor="search">Feature</label>
       <input 
         minLength={minSearchLength}

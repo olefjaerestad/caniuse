@@ -1,6 +1,24 @@
 :root {
-  --color-background: rgb(240, 238, 226);
-  --color-white: hsla(0, 0%, 100%, 1);
+  /**
+   * Usage: hsl(var(--color-background)), hsla(var(--color-background), .5) 
+   * Alternate colors are used for theming.
+   */
+  --color-background: 51, 32%, 91%;
+  --color-background-alternate: 203, 90%, 10%;
+  --color-foreground: 0, 0%, 100%;
+  --color-foreground-alternate: 201, 87%, 16%;
+  --color-primary: 51, 100%, 50%;
+  --color-primary-alternate: 150, 80%, 30%;
+  --color-text: 0, 0%, 0%;
+  --color-text-alternate: 0, 0%, 100%;
+  --color-shadow: 0, 0%, 0%;
+  --color-shadow-alternate: 0, 0%, 0%;
+
+  --border-radius-base: 10px;
+  --border-radius-small: var(--border-radius-base);
+  
+  --gutter-base: 1rem;
+  --gutter-small: var(--gutter-base);
 }
 
 @font-face {
@@ -15,6 +33,7 @@
 body {
   font-family: 'roboto';
   font-variation-settings: 'wght' 300;
-  background-color: var(--color-background);
+  color: hsl(var(--color-text));
+  background-color: hsl(var(--color-background));
   margin: 0;
 }
