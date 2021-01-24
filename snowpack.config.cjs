@@ -26,5 +26,6 @@ module.exports = {
     // ['@snowpack/plugin-typescript', {
     //   args: '--project tsconfig.json',
     // }],
+    'snowpack-plugin-relative-css-urls',
   ],
 }

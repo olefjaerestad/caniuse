@@ -19,7 +19,6 @@ export function apiRoutes(route: string, server: Express): Express {
         e.message
       );
     }
-
   });
 
   server.post(`${route}/updateserverstate`, async (req: Request, res: Response) => {

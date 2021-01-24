@@ -1,9 +1,11 @@
 import commonjs from '@rollup/plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
+import postcssImport from 'postcss-import';
 import replace from '@rollup/plugin-replace';
 import typescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 
+const clientOutputFilename = 'client.js';
 const serverOutputFilename = 'index.js';
 
 export default [
@@ -44,10 +46,17 @@ export default [
       postcss({
         // Extract CSS to separate file, ref https://florian.ec/blog/rollup-scss-css-modules/
         extract: true,
+        plugins: [
+          postcssImport(),
+        ],
       }),
       replace({
         // Fixes https://github.com/rollup/rollup/issues/487
-        'process.env.NODE_ENV': JSON.stringify( 'production' )
+        'process.env.NODE_ENV': JSON.stringify( 'production' ),
+        // Replace global vars to allow for more efficient tree shaking/dead code removal.
+        // We avoid final replacement in output bundle, since there are certain occurences we don't want to replace.
+        '__NODE_ENV__': (id) => id === clientOutputFilename ? '__NODE_ENV__' : JSON.stringify( 'production' ),
+        exclude: ['src/common/globals.ts'],
       }),
       // Bundle imported node_modules in output:
       nodeResolve(),

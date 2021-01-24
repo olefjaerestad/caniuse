@@ -1,7 +1,8 @@
-@import './common/css/_grid.css';
-@import './common/css/_anchor.css';
-@import './common/css/_table.css';
-@import './common/css/_list.css';
+/* snowpack-plugin-relative-css-urls requires the url() function */
+@import url('./css/_grid.css');
+@import url('./css/_anchor.css');
+@import url('./css/_table.css');
+@import url('./css/_list.css');
 
 :root {
   /**
