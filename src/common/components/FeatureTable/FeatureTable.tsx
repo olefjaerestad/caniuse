@@ -9,19 +9,21 @@ export function FeatureTable() {
 
   // TODO: Add sorting
   return (
-    <table className={styles.table}>
-      <thead>
-        <tr>
-          <td>Feature</td>
-          <td>Meets critical threshold</td>
-          <td>Meets non-critical threshold</td>
-        </tr>
-      </thead>
-      <tbody>
-        {Object.entries(features).map(([name, feature]) => {
-          return <FeatureTableItem name={name} feature={feature} />
-        })}
-      </tbody>
-    </table>
+    <>
+      <div className={styles.header}>
+        <div className={styles.header__row}>
+          <div className={styles.header__data}>Feature</div>
+          <div className={styles.header__data}>Meets critical threshold</div>
+          <div className={styles.header__data}>Meets non-critical threshold</div>
+        </div>
+      </div>
+      <table className={styles.table}>
+        <tbody>
+          {Object.entries(features).map(([name, feature]) => {
+            return <FeatureTableItem name={name} feature={feature} />
+          })}
+        </tbody>
+      </table>
+    </>
   )
 }

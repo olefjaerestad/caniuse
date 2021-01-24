@@ -48,10 +48,18 @@ function generateHead(store: Store) {
   return /*html*/`
     <head>
       <title>Caniuse - based on browser usage</title>
+      ${generateMetatags()}
       ${generateHeadScripts(store)}
       ${generateHeadStyles()}
     </head>
   `.trim();
+}
+
+function generateMetatags() {
+  let tags = /*html*/`
+    <meta name="viewport" content="width=device-width, height=device-height, minimum-scale=1, initial-scale=1">
+  `;
+  return tags.trim();
 }
 
 function generateHeadScripts(store: Store) {

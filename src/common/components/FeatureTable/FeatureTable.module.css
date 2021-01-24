@@ -1,8 +1,28 @@
+/* .header is basically faking a thead so we can get position: sticky to work correctly */
+.header {
+  font-variation-settings: 'wght' 500;
+  background-color: hsl(var(--color-primary));
+  box-shadow: 2px 2px 7px hsla(var(--color-shadow), .2);
+  position: sticky;
+  top: 0;
+  will-change: transform;
+}
+
+.header__row {
+  display: grid;
+  grid-template-columns: 2fr repeat(2, 1fr);
+}
+
+.header__data {
+  padding: .9em;
+}
+
 .table {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
   margin-bottom: var(--gutter-small);
 }
 
-.table > thead > tr,
 .table > tbody > tr {
   display: grid;
   grid-template-columns: 2fr repeat(2, 1fr);

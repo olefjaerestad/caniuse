@@ -53,8 +53,8 @@ export function FeatureTableItem({name, feature}: IProps) {
             <table>
               <thead>
                 <tr>
-                  <td>Browser</td>
-                  <td>Version</td>
+                  <th>Browser</th>
+                  <th>Version</th>
                 </tr>
               </thead>
               <tbody>
@@ -75,8 +75,8 @@ export function FeatureTableItem({name, feature}: IProps) {
             <table>
               <thead>
                 <tr>
-                  <td>Browser</td>
-                  <td>Version</td>
+                  <th>Browser</th>
+                  <th>Version</th>
                 </tr>
               </thead>
               <tbody>
@@ -99,8 +99,8 @@ export function FeatureTableItem({name, feature}: IProps) {
             <table>
               <thead>
                 <tr>
-                  <td>Browser</td>
-                  <td>Version</td>
+                  <th>Browser</th>
+                  <th>Version</th>
                 </tr>
               </thead>
               <tbody>
@@ -121,8 +121,8 @@ export function FeatureTableItem({name, feature}: IProps) {
             <table>
               <thead>
                 <tr>
-                  <td>Browser</td>
-                  <td>Version</td>
+                  <th>Browser</th>
+                  <th>Version</th>
                 </tr>
               </thead>
               <tbody>
@@ -143,9 +143,9 @@ export function FeatureTableItem({name, feature}: IProps) {
         <table>
           <thead>
             <tr>
-              <td>Browser</td>
-              <td>Is supported</td>
-              <td>Notes</td>
+              <th>Browser</th>
+              <th>Is supported</th>
+              <th>Notes</th>
             </tr>
           </thead>
           <tbody>

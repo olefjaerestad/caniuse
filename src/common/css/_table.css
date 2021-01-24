@@ -18,6 +18,11 @@ tbody > tr:nth-of-type(even) {
   background-color: hsla(var(--color-foreground), .9);
 }
 
+th {
+  text-align: left;
+}
+
+th,
 td {
-  padding: .9rem;
+  padding: .9em;
 }
