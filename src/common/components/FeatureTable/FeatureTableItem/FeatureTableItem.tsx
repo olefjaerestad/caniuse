@@ -50,7 +50,7 @@ export function FeatureTableItem({name, feature}: IProps) {
         <div className="grid grid--spacing">
           <div className="cell--6">
             <h3>Support status by browser - critical threshold</h3>
-            <table>
+            <table className="table--small">
               <thead>
                 <tr>
                   <th>Browser</th>
@@ -72,7 +72,7 @@ export function FeatureTableItem({name, feature}: IProps) {
 
           <div className="cell--6">
             <h3>Support status by browser - non-critical threshold</h3>
-            <table>
+            <table className="table--small">
               <thead>
                 <tr>
                   <th>Browser</th>
@@ -95,8 +95,8 @@ export function FeatureTableItem({name, feature}: IProps) {
 
         <div className="grid grid--spacing">
           <div className="cell--6">
-            <h3>First partially supported in</h3>
-            <table>
+            <h3>First partial support</h3>
+            <table className="table--small">
               <thead>
                 <tr>
                   <th>Browser</th>
@@ -117,8 +117,8 @@ export function FeatureTableItem({name, feature}: IProps) {
           </div>
 
           <div className="cell--6">
-            <h3>First fully supported in</h3>
-            <table>
+            <h3>First full support</h3>
+            <table className="table--small">
               <thead>
                 <tr>
                   <th>Browser</th>
@@ -139,27 +139,31 @@ export function FeatureTableItem({name, feature}: IProps) {
           </div>
         </div>
 
-        <h3>Is supported in latest browser version</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Browser</th>
-              <th>Is supported</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(supportedInLatestBrowserVersion).map(([browser, supportStatus]) => {
-              return (
+        <div className="grid grid--spacing">
+          <div className="cell--12">
+            <h3>Support in latest browser version</h3>
+            <table className="table--small">
+              <thead>
                 <tr>
-                  <td>{browser}</td>
-                  <td>{getSupportStatus(supportStatus)}</td>
-                  <td>{mapSupportStatusToNoteAnchors(supportStatus, name)}</td>
+                  <th>Browser</th>
+                  <th>Is supported</th>
+                  <th>Notes</th>
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {Object.entries(supportedInLatestBrowserVersion).map(([browser, supportStatus]) => {
+                  return (
+                    <tr>
+                      <td>{browser}</td>
+                      <td>{getSupportStatus(supportStatus)}</td>
+                      <td>{mapSupportStatusToNoteAnchors(supportStatus, name)}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
 
         {Object.keys(notesByNum).length > 0 &&
           <>

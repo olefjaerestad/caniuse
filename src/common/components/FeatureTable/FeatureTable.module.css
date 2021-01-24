@@ -1,5 +1,6 @@
 /* .header is basically faking a thead so we can get position: sticky to work correctly */
 .header {
+  font-size: var(--feature-table-font-size, 1rem);
   font-variation-settings: 'wght' 500;
   background-color: hsl(var(--color-primary));
   box-shadow: 2px 2px 7px hsla(var(--color-shadow), .2);
@@ -18,6 +19,7 @@
 }
 
 .table {
+  font-size: var(--feature-table-font-size, 1rem);
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   margin-bottom: var(--gutter-small);

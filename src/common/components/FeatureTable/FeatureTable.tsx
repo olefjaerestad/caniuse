@@ -13,8 +13,8 @@ export function FeatureTable() {
       <div className={styles.header}>
         <div className={styles.header__row}>
           <div className={styles.header__data}>Feature</div>
-          <div className={styles.header__data}>Meets critical threshold</div>
-          <div className={styles.header__data}>Meets non-critical threshold</div>
+          <div className={styles.header__data}>Use as critical</div>
+          <div className={styles.header__data}>Use as non-critical</div>
         </div>
       </div>
       <table className={styles.table}>

@@ -1,4 +1,5 @@
 table {
+  font-size: inherit;
   width: 100%;
   border-radius: var(--border-radius-small);
   border-collapse: collapse;
@@ -25,4 +26,8 @@ th {
 th,
 td {
   padding: .9em;
+}
+
+.table--small {
+  font-size: .8em;
 }
