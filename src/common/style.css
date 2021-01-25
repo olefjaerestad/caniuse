@@ -3,6 +3,7 @@
 @import url('./css/_anchor.css');
 @import url('./css/_table.css');
 @import url('./css/_list.css');
+@import url('./css/_icon.css');
 
 :root {
   /**
@@ -21,6 +22,9 @@
   --color-anchor-alternate: 150, 80%, 45%;
   --color-shadow: 0, 0%, 0%;
   --color-shadow-alternate: 0, 0%, 0%;
+  --color-success: 150, 80%, 40%;
+  --color-error: 0, 70%, 50%;
+  --color-info: 37, 100%, 50%;
 
   --border-radius-base: 10px;
   --border-radius-small: var(--border-radius-base);

@@ -1,12 +1,77 @@
 import React, { useState, MouseEvent, KeyboardEvent } from 'react';
 import styles from './FeatureTableItem.module.css';
 import { getSupportStatus, mapSupportStatusToNoteAnchors } from './FeatureTableItem-utils';
+import { Icon } from '../../Icon/Icon';
 import { IFeature } from '../../../types/feature-types';
+import { IProps as IconProps } from '../../Icon/Icon';
 import { parseMarkdown } from '../../../util/markdown-utils';
+import { TSupportStatus } from '../../../../common/types/feature-types';
 
 interface IProps {
   name: string,
   feature: IFeature,
+}
+
+type TSupportStringToIconInfoMapping = {
+  [key in TSupportStatus['key']]: {
+    color: IconProps['color'],
+    icon: IconProps['icon'],
+  }
+}
+
+type TCanIUseSupportString = 'y' | 'y x' | 'n' | 'a' | 'a x' | 'a d' | 'u';
+
+type TCanIUseSupportStringToIconInfoMapping = {
+  [key in TCanIUseSupportString]: {
+    color: IconProps['color'],
+    icon: IconProps['icon'],
+  }
+}
+
+const supportStringToIcon: TSupportStringToIconInfoMapping = {
+  not_supported: {
+    color: 'hsl(var(--color-error))',
+    icon: 'cross',
+  },
+  partial_support: {
+    color: 'hsl(var(--color-info))',
+    icon: 'checkmark',
+  },
+  supported: {
+    color: 'hsl(var(--color-success))',
+    icon: 'checkmark',
+  }
+}
+
+const caniuseSupportStringToIcon: TCanIUseSupportStringToIconInfoMapping = {
+  n: {
+    color: 'hsl(var(--color-error))',
+    icon: 'cross',
+  },
+  a: {
+    color: 'hsl(var(--color-info))',
+    icon: 'checkmark',
+  },
+  'a x': {
+    color: 'hsl(var(--color-info))',
+    icon: 'checkmark',
+  },
+  'a d': {
+    color: 'hsl(var(--color-info))',
+    icon: 'checkmark',
+  },
+  u: {
+    color: 'hsl(var(--color-info))',
+    icon: 'checkmark',
+  },
+  y: {
+    color: 'hsl(var(--color-success))',
+    icon: 'checkmark',
+  },
+  'y x': {
+    color: 'hsl(var(--color-success))',
+    icon: 'checkmark',
+  },
 }
 
 export function FeatureTableItem({name, feature}: IProps) {
@@ -42,8 +107,18 @@ export function FeatureTableItem({name, feature}: IProps) {
         onClick={handleClick} 
         onKeyUp={handleClick}
       ><h2>{title}</h2></td>
-      <td>{supportStatusCritical}</td>
-      <td>{supportStatusNonCritical}</td>
+      <td>
+        <Icon 
+          icon={supportStringToIcon[supportStatusCritical].icon} 
+          color={supportStringToIcon[supportStatusCritical].color} 
+        />
+      </td>
+      <td>
+        <Icon 
+          icon={supportStringToIcon[supportStatusNonCritical].icon} 
+          color={supportStringToIcon[supportStatusNonCritical].color} 
+        />
+      </td>
       {open && <td className={styles.details}>
         <p>{description}</p>
 
@@ -62,7 +137,12 @@ export function FeatureTableItem({name, feature}: IProps) {
                   return (
                     <tr>
                       <td>{browser}</td>
-                      <td>{supportStatus}</td>
+                      <td>
+                        <Icon 
+                          icon={supportStringToIcon[supportStatus].icon} 
+                          color={supportStringToIcon[supportStatus].color} 
+                        />
+                      </td>
                     </tr>
                   );
                 })}
@@ -84,7 +164,12 @@ export function FeatureTableItem({name, feature}: IProps) {
                   return (
                     <tr>
                       <td>{browser}</td>
-                      <td>{supportStatus}</td>
+                      <td>
+                        <Icon 
+                          icon={supportStringToIcon[supportStatus].icon} 
+                          color={supportStringToIcon[supportStatus].color} 
+                        />
+                      </td>
                     </tr>
                   );
                 })}
@@ -155,7 +240,12 @@ export function FeatureTableItem({name, feature}: IProps) {
                   return (
                     <tr>
                       <td>{browser}</td>
-                      <td>{getSupportStatus(supportStatus)}</td>
+                      <td>
+                        <Icon 
+                          icon={caniuseSupportStringToIcon[getSupportStatus(supportStatus)].icon} 
+                          color={caniuseSupportStringToIcon[getSupportStatus(supportStatus)].color} 
+                        />
+                      </td>
                       <td>{mapSupportStatusToNoteAnchors(supportStatus, name)}</td>
                     </tr>
                   );
