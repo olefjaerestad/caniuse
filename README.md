@@ -8,6 +8,7 @@ A node.js environment that supports:
 A browser environment that supports:
 - [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
 - [CSS grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)
+- [CSS minmax function](https://developer.mozilla.org/en-US/docs/Web/CSS/minmax())
 - [Variable fonts](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fonts/Variable_Fonts_Guide)
 
 ## Prerequisites
