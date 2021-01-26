@@ -7,8 +7,8 @@ new Server({
   port: 3001,
   watch: {
     path: [
-      join(fileURLToPath(import.meta.url), '../dist/client'),
-      join(fileURLToPath(import.meta.url), '../dist/common'),
+      join(fileURLToPath(import.meta.url), '../dev/client'),
+      join(fileURLToPath(import.meta.url), '../dev/common'),
     ]
   }
 });

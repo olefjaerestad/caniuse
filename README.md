@@ -43,14 +43,14 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 
 ## Notes
 - Src files (the files you actually edit) are located in `src`.
-- Dev files (used by dev server, for local development) are located in `dist`. These are compiled from `src`.
+- Dev files (used by dev server, for local development) are located in `dev`. These are compiled from `src`.
 - Prod files (bundled, production ready files) are located in `build`. These are compiled from `src`.
 
 ## Todo
 - Theming.
 - Inline TODOs.
 - Write tests.
-- Fix `ERR_MODULE_NOT_FOUND`on `npm run dev` by only running nodemon _after_ snowpack has finished transpiling. Side note: `nodemon` doesnt seem to restart automatically if provided a config. Update: It does, just remember to use a trailing slash in the watched folders: `"dist/server/"`.
+- Fix `ERR_MODULE_NOT_FOUND`on `npm run dev` by only running nodemon _after_ snowpack has finished transpiling. Side note: `nodemon` doesnt seem to restart automatically if provided a config. Update: It does, just remember to use a trailing slash in the watched folders: `"dev/server/"`.
 - getSupportDataForMyAudience: return empty object instead of all features if search param is empty?
 - Add dropdown menu for selecting which website to fetch GA data from.
 
@@ -60,7 +60,7 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Prod bundling so that `npm run build` and `npm run start` works.
 - Avoid outputting double `<body>` (one for SSR and one client side).
 - Fix frontend console errors.
-- Delete dist folder before dev'ing.
+- Delete dev folder before dev'ing.
 - Delete build folder before building.
 - Increase `npm run dev` speed. Only Snowpack transpile web_modules on first run: https://github.com/snowpackjs/snowpack/issues/1052, https://github.com/snowpackjs/snowpack/issues/376
 - Load browser usage and browser support data immediately when server starts up?

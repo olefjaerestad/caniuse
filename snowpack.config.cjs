@@ -1,6 +1,6 @@
 module.exports = {
   buildOptions: {
-    out: 'dist',
+    out: 'dev',
   },
   packageOptions: {
     // Add all server packages here:

@@ -19,7 +19,7 @@ import nodemon from 'nodemon';
 buildProject({config: {
   buildOptions: {
     clean: false,
-    out: './dist',
+    out: './dev',
     metaDir: '__snowpack__',
     webModulesUrl: 'web_modules',
   },

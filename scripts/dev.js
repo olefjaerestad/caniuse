@@ -1,3 +1,3 @@
-import { app } from '../dist/server/index.js';
+import { app } from '../dev/server/index.js';
 
 app();
