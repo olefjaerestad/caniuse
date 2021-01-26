@@ -60,11 +60,11 @@ export function getBrowserSupport(
         // Note: This logic will break if feature is supported in e.g. v44 but not in v45,
         // which is why we have `supportedInLatestBrowserVersion`.
         // e.g. https://caniuse.com/svg-fonts
-        if (supportStatus === 'y' && !firstFullySupportedIn[browserName]) {
+        if (supportStatus.startsWith('y') && !firstFullySupportedIn[browserName]) {
           firstFullySupportedIn[browserName] = version;
         }
         // e.g. 'y #4 #5', 'a #2'
-        if (supportStatus !== 'y' && !supportStatus.startsWith('n') && !firstPartiallySupportedIn[browserName]) {
+        if (!supportStatus.startsWith('y') && !supportStatus.startsWith('n') && !firstPartiallySupportedIn[browserName]) {
           firstPartiallySupportedIn[browserName] = version;
         }
 
@@ -156,12 +156,12 @@ export function getBrowserSupport(
  */
 function getSupportStatus(
   {
-    partiallySupportedInVersion, 
     audienceVersion, 
+    partiallySupportedInVersion, 
     supportedInVersion
   }: {
-    partiallySupportedInVersion: string;
     audienceVersion: string;
+    partiallySupportedInVersion: string;
     supportedInVersion: string;
   }
 ): TSupportStatus[keyof TSupportStatus] {
