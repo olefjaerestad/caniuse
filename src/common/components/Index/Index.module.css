@@ -6,10 +6,6 @@
 .header {
   padding: var(--gutter-small);
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: start;
-}
-
-.title {
-  margin-top: 0;
 }

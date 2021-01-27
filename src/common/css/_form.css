@@ -1,0 +1,17 @@
+input {
+  font: inherit;
+}
+
+label {
+  font-variation-settings: 'wght' 500;
+  display: inline-block;
+}
+
+[type="submit"] {
+  font-variation-settings: 'wght' 500;
+}
+
+[type="submit"]:hover,
+[type="submit"]:focus {
+  text-decoration: underline;
+}

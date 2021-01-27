@@ -1,6 +1,7 @@
 /* snowpack-plugin-relative-css-urls requires the url() function */
 @import url('./css/_grid.css');
 @import url('./css/_anchor.css');
+@import url('./css/_form.css');
 @import url('./css/_table.css');
 @import url('./css/_list.css');
 @import url('./css/_icon.css');

@@ -37,16 +37,19 @@ export function SearchForm() {
 
   return (
     <form className={styles.form} action="" onSubmit={handleSubmit}>
-      <label htmlFor="search">Feature</label>
-      <input 
-        type="search"
-        name="search"
-        id="search"
-        value={search}
-        placeholder="svg, class, arrow functions, etc"
-        onChange={handleChange}
-      />
-      <input type="submit" value="Search"/>
+      <div className={styles.inputWrapper}>
+        <label htmlFor="search">Feature:</label>
+        <input 
+          type="search"
+          name="search"
+          id="search"
+          value={search}
+          placeholder="svg, class, arrow functions, etc"
+          autoFocus
+          onChange={handleChange}
+        />
+        <input type="submit" value="Search"/>
+      </div>
       {error && <p>{error}</p>}
     </form>
   )

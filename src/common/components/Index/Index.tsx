@@ -9,7 +9,6 @@ export function Index() {
     <>
       <div className={styles.container}>
         <div className={styles.header}>
-          <h1 className={styles.title}>Caniuse - based on browser usage</h1>
           <ThemeSwitcher />
         </div>
         <SearchForm />

@@ -17,10 +17,12 @@
   padding-left: 1em;
   overflow: hidden;
 }
-.button:hover,
-.button:focus {
-  /* Note to self: https://css-tricks.com/the-focus-visible-trick/ */
-  width: 9.8em; /* Magic number */
+@media (pointer: fine) {
+  .button:hover,
+  .button:focus {
+    /* Note to self: https://css-tricks.com/the-focus-visible-trick/ */
+    width: 9.8em; /* Magic number */
+  }
 }
 
 .button :global(.icon) {
@@ -36,7 +38,9 @@
   opacity: 0;
   transition: opacity .2s ease-in-out;
 }
-.button:hover .button__text,
-.button:focus .button__text {
-  opacity: 1;
+@media (pointer: fine) {
+  .button:hover .button__text,
+  .button:focus .button__text {
+    opacity: 1;
+  }
 }
