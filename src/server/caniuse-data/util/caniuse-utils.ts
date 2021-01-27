@@ -31,6 +31,7 @@ const gaBrowserNameToCanIUseBrowserName: TBrowserMapping = {
   // 'samsung' // Samsung Internet
 }
 
+// TODO: Refactor this by extracting blocks to smaller functions.
 export function getBrowserSupport(
   browserData: IBrowserUsageDataByCriticality, 
   supportData: ICanIUseData['data']
