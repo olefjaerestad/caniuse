@@ -1,0 +1,14 @@
+.symbol {
+  background: linear-gradient(to right, 
+    hsl(var(--color-primary)),
+    hsla(var(--color-primary), .2),
+    hsl(var(--color-primary)),
+    hsla(var(--color-primary), .2),
+    hsl(var(--color-primary))
+  );
+  width: 100%;
+  height: var(--gutter-small);
+  position: fixed;
+  top: 0;
+  left: 0;
+}
