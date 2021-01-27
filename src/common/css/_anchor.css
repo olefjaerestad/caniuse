@@ -1,5 +1,6 @@
 a {
   color: hsl(var(--color-anchor));
+  transition: color .2s ease-in-out;
 }
 a:hover,
 a:focus {

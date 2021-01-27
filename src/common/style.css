@@ -58,6 +58,8 @@ body {
   color: hsl(var(--color-text));
   background-color: hsl(var(--color-background));
   margin: 0;
+  transition: all .2s ease-in-out;
+  transition-property: color, background-color;
 }
 
 :target {

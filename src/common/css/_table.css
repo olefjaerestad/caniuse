@@ -1,5 +1,6 @@
 table {
   font-size: inherit;
+  color: inherit;
   width: 100%;
   border-radius: var(--border-radius-small);
   border-collapse: collapse;
@@ -10,6 +11,7 @@ table {
 thead {
   font-variation-settings: 'wght' 500;
   background-color: hsl(var(--color-primary));
+  transition: background-color .2s ease-in-out;
 }
 
 tbody > tr:nth-of-type(odd) {
@@ -17,6 +19,10 @@ tbody > tr:nth-of-type(odd) {
 }
 tbody > tr:nth-of-type(even) {
   background-color: hsla(var(--color-foreground), .9);
+}
+
+tr {
+  transition: background-color .2s ease-in-out;
 }
 
 th {

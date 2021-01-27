@@ -7,6 +7,7 @@
   position: sticky;
   top: 0;
   will-change: transform;
+  transition: background-color .2s ease-in-out;
 }
 
 .header__row {
