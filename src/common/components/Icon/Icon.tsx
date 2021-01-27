@@ -1,31 +1,42 @@
 import React from 'react';
 import { CheckmarkIcon } from './CheckmarkIcon/CheckmarkIcon';
 import { CrossIcon } from './CrossIcon/CrossIcon';
+import { MoonIcon } from './MoonIcon/MoonIcon';
+import { SunIcon } from './SunIcon/SunIcon';
 
 export interface IProps {
-  icon: 'checkmark' | 'cross';
+  icon: 'checkmark' | 'cross' | 'moon' | 'sun';
   color?: string; // any valid css color value
 }
 
+type TIconComponent = (props: {color?: IProps['color']}) => JSX.Element;
+
 export function Icon({color, icon}: IProps) {
   color = color || 'currentColor';
-  let iconElement: JSX.Element = null;
+  let IconElement: TIconComponent = null;
   
+  /* https://reactjs.org/docs/jsx-in-depth.html#choosing-the-type-at-runtime */
   switch (icon) {
     case 'checkmark':
-      iconElement = <CheckmarkIcon color={color} />;
+      IconElement = CheckmarkIcon;
       break;
     case 'cross':
-      iconElement = <CrossIcon color={color} />;
+      IconElement = CrossIcon;
+      break;
+    case 'moon':
+      IconElement = MoonIcon;
+      break;
+    case 'sun':
+      IconElement = SunIcon;
       break;
     default:
-      iconElement = null;
+      IconElement = null;
       break;
   }
 
   return (
     <span className="icon">
-      {iconElement}
+      {IconElement && <IconElement color={color} />}
     </span>
   )
 }

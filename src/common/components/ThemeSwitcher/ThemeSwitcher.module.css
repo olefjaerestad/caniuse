@@ -1,0 +1,42 @@
+.button {
+  font-size: inherit;
+  text-align: right;
+  color: hsl(var(--color-text));
+  background-color: transparent;
+  border: 1px solid hsl(var(--color-text));
+  border-radius: 1.5em;
+  appearance: none;
+  
+  white-space: nowrap;
+  width: 3em;
+  height: 3em;
+  transition: all .2s ease-in-out;
+  direction: rtl; /* Overflow text to left instead of right */
+  padding: 0;
+  padding-right: 1em;
+  padding-left: 1em;
+  overflow: hidden;
+}
+.button:hover,
+.button:focus {
+  /* Note to self: https://css-tricks.com/the-focus-visible-trick/ */
+  width: 9.8em; /* Magic number */
+}
+
+.button :global(.icon) {
+  margin-left: .7em;
+}
+
+.button__inner {
+  direction: ltr; /* Reset direction */
+  display: inline-block; /* Block required by 'direction' */
+}
+
+.button__text {
+  opacity: 0;
+  transition: opacity .2s ease-in-out;
+}
+.button:hover .button__text,
+.button:focus .button__text {
+  opacity: 1;
+}

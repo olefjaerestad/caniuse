@@ -12,7 +12,11 @@ interface IProps {
  */
 export function CheckmarkIcon({color}: IProps) {
   return (
-    <svg viewBox="0 0 100 100">
+    <svg 
+      viewBox="0 0 100 100" 
+      role="img" 
+      aria-label="Illustration of a checkmark"
+    >
       <path fill="none" stroke={color} strokeWidth="15" strokeLinecap="round" d="
         M 8,50
         Q 30,65 40,80

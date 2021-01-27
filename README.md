@@ -28,7 +28,7 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 
 > Dev uses `snowpack` and `nodemon` for transpiling and running. `express` is used for the server. `react` is used for the frontend, both through server side rendering and client side hydration. `@olefjaerestad/hmr` is used for hot module replacement/automatic browser reloading.
 
-> When installing and using new dependencies, you might need to restart `npm run dev`, so `Snowpack` can transpile the newly added dependencies.
+> When installing and using new dependencies, you might need to restart `npm run dev`, so `Snowpack` can transpile the newly added dependencies. The same is true when adding new `MyComponent.module.css` files.
 
 > Dev supports a mock mode, where the app uses local mock data instead of doing actual http calls. To use mock mode, run `npm run mock:generate` (this will create a `mock` folder with the data. Requires a network connection.), then `npm run dev:mock`. Handy for developing offline.
 
@@ -47,7 +47,7 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Prod files (bundled, production ready files) are located in `build`. These are compiled from `src`.
 
 ## Todo
-- Theming.
+- Use React dev script in dev.
 - Inline TODOs.
 - Write tests.
 - Fix `ERR_MODULE_NOT_FOUND`on `npm run dev` by only running nodemon _after_ snowpack has finished transpiling. Side note: `nodemon` doesnt seem to restart automatically if provided a config. Update: It does, just remember to use a trailing slash in the watched folders: `"dev/server/"`.
@@ -73,3 +73,4 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Make client side redux state use the redux state from server.
 - Make CSS work without JS in browser for prod.
 - Rename 'functionality' to 'feature' across the codebase.
+- Theming.

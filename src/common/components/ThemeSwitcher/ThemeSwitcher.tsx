@@ -1,4 +1,6 @@
-import React, { KeyboardEvent, MouseEvent } from 'react';
+import React, { MouseEvent, useRef, useState } from 'react';
+import styles from './ThemeSwitcher.module.css';
+import { Icon } from '../Icon/Icon';
 
 interface ICssPropertiesAlternateMapping {
   [key: string]: string;
@@ -27,13 +29,34 @@ function switchCssValues(propertyMapping: ICssPropertiesAlternateMapping) {
 }
 
 export function ThemeSwitcher() {
-  function handleClick(e: MouseEvent | KeyboardEvent) {
-    if ( e.type === 'keyup' && (e as KeyboardEvent).key !== 'Enter') {
-      return;
-    }
-    
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const buttonEl = useRef<HTMLButtonElement>();
+
+  function handleClick(e: MouseEvent) {    
     switchCssValues(cssMappings);
+    setTheme(theme === 'light' ? 'dark' : 'light');
   }
 
-  return <button onClick={handleClick} onKeyUp={handleClick}>Switch theme</button>
+  function handleMouseLeave(e: MouseEvent) {
+    // This might be a bad idea, UX wise?
+    buttonEl.current.blur();
+  }
+
+  return (
+    <button 
+      className={styles.button}
+      onClick={handleClick} 
+      onMouseLeave={handleMouseLeave}
+      ref={buttonEl}
+    >
+      <span className={styles.button__inner}>
+        <span className={styles.button__text}>Switch theme</span>
+        {
+          theme === 'light' 
+          ? <Icon icon="moon" color="hsl(var(--color-primary-alternate))" /> 
+          : <Icon icon="sun" color="hsl(var(--color-primary-alternate))" />
+        }
+      </span>
+    </button>
+  );
 }
