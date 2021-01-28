@@ -18,6 +18,7 @@ export function FeatureTable() {
         </div>
       </div>
       <table className={styles.table}>
+        <caption className="sr">Table displaying whether or not a specific feature can be used as a critical or non-critical feature.</caption>
         <thead className="sr">
           <tr>
             <th>Feature</th>

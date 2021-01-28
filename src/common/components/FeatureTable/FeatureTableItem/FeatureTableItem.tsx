@@ -101,12 +101,12 @@ export function FeatureTableItem({name, feature}: IProps) {
   // TODO: Make an expand button that runs handleClick
   return (
     <tr id={`feature--${name}`}>
-      <td 
+      <th 
         className={styles.title} 
         tabIndex={0} 
         onClick={handleClick} 
         onKeyUp={handleClick}
-      ><h2>{title}</h2></td>
+      ><h2>{title}</h2></th>
       <td>
         <Icon 
           icon={supportStringToIcon[supportStatusCritical].icon} 
@@ -126,17 +126,18 @@ export function FeatureTableItem({name, feature}: IProps) {
           <div className="cell--6">
             <h3>Support status by browser - critical threshold</h3>
             <table className="table--small">
+              <caption className="sr">Table displaying whether or not currently selected feature can be used as a critical feature in a specific browser.</caption>
               <thead>
                 <tr>
                   <th>Browser</th>
-                  <th>Version</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
                 {Object.entries(supportStatusByBrowserCritical).map(([browser, supportStatus]) => {
                   return (
                     <tr>
-                      <td>{browser}</td>
+                      <th>{browser}</th>
                       <td>
                         <Icon 
                           icon={supportStringToIcon[supportStatus].icon} 
@@ -153,17 +154,18 @@ export function FeatureTableItem({name, feature}: IProps) {
           <div className="cell--6">
             <h3>Support status by browser - non-critical threshold</h3>
             <table className="table--small">
+              <caption className="sr">Table displaying whether or not currently selected feature can be used as a non-critical feature in a specific browser.</caption>
               <thead>
                 <tr>
                   <th>Browser</th>
-                  <th>Version</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
                 {Object.entries(supportStatusByBrowserNonCritical).map(([browser, supportStatus]) => {
                   return (
                     <tr>
-                      <td>{browser}</td>
+                      <th>{browser}</th>
                       <td>
                         <Icon 
                           icon={supportStringToIcon[supportStatus].icon} 
@@ -182,6 +184,7 @@ export function FeatureTableItem({name, feature}: IProps) {
           <div className="cell--6">
             <h3>First partial support</h3>
             <table className="table--small">
+              <caption className="sr">Table displaying which version of a specific browser first partially supported currently selected feature.</caption>
               <thead>
                 <tr>
                   <th>Browser</th>
@@ -192,7 +195,7 @@ export function FeatureTableItem({name, feature}: IProps) {
                 {Object.entries(firstPartiallySupportedIn).map(([browser, version]) => {
                   return (
                     <tr>
-                      <td>{browser}</td>
+                      <th>{browser}</th>
                       <td>{version}</td>
                     </tr>
                   );
@@ -204,6 +207,7 @@ export function FeatureTableItem({name, feature}: IProps) {
           <div className="cell--6">
             <h3>First full support</h3>
             <table className="table--small">
+              <caption className="sr">Table displaying which version of a specific browser first fully supported currently selected feature.</caption>
               <thead>
                 <tr>
                   <th>Browser</th>
@@ -214,7 +218,7 @@ export function FeatureTableItem({name, feature}: IProps) {
                 {Object.entries(firstFullySupportedIn).map(([browser, version]) => {
                   return (
                     <tr>
-                      <td>{browser}</td>
+                      <th>{browser}</th>
                       <td>{version}</td>
                     </tr>
                   );
@@ -228,6 +232,7 @@ export function FeatureTableItem({name, feature}: IProps) {
           <div className="cell--12">
             <h3>Support in latest browser version</h3>
             <table className="table--small">
+              <caption className="sr">Table displaying if latest version of a specific browser supports currently selected feature.</caption>
               <thead>
                 <tr>
                   <th>Browser</th>
@@ -239,7 +244,7 @@ export function FeatureTableItem({name, feature}: IProps) {
                 {Object.entries(supportedInLatestBrowserVersion).map(([browser, supportStatus]) => {
                   return (
                     <tr>
-                      <td>{browser}</td>
+                      <th>{browser}</th>
                       <td>
                         <Icon 
                           icon={caniuseSupportStringToIcon[getSupportStatus(supportStatus)].icon} 
