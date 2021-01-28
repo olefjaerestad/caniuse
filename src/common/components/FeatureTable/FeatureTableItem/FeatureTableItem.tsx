@@ -251,7 +251,7 @@ export function FeatureTableItem({name, feature}: IProps) {
                           color={caniuseSupportStringToIcon[getSupportStatus(supportStatus)].color} 
                         />
                       </td>
-                      <td>{mapSupportStatusToNoteAnchors(supportStatus, name)}</td>
+                      <td className={styles.browsernotes}>{mapSupportStatusToNoteAnchors(supportStatus, name)}</td>
                     </tr>
                   );
                 })}

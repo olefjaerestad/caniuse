@@ -10,6 +10,8 @@ A browser environment that supports:
 - [CSS grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)
 - [CSS minmax function](https://developer.mozilla.org/en-US/docs/Web/CSS/minmax())
 - [Variable fonts](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fonts/Variable_Fonts_Guide)
+- [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
+- [globalThis](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/globalThis)
 
 ## Prerequisites
 1. If you haven't already, you need to create a Google Analytics view and include its script on your web site.
@@ -47,6 +49,8 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Prod files (bundled, production ready files) are located in `build`. These are compiled from `src`.
 
 ## Todo
+- Make custom fonts work in prod build.
+- Add screen reader friendly alternatives to meaning bearing icons.
 - Use React dev script in dev.
 - Inline TODOs.
 - Write tests.

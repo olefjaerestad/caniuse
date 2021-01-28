@@ -1,14 +1,12 @@
 .symbol {
-  background: linear-gradient(to right, 
-    hsl(var(--color-primary)),
-    hsla(var(--color-primary), .2),
-    hsl(var(--color-primary)),
-    hsla(var(--color-primary), .2),
-    hsl(var(--color-primary))
-  );
-  width: 100%;
-  height: var(--gutter-small);
+  width: 3rem;
+  height: 3rem;
   position: fixed;
-  top: 0;
-  left: 0;
+  top: calc(50% - 1.5rem);
+  left: calc(50% - 1.5rem);
+  filter: drop-shadow(2px 2px 2px hsla(var(--color-shadow), .3));
+}
+
+.symbol path, .symbol circle {
+  transition: stroke-dashoffset .2s ease-in-out;
 }

@@ -30,7 +30,7 @@ export function SearchForm() {
     // Update 'search' query param:
     const searchParams = new URLSearchParams(myHistory.location.search);
     searchParams.set('search', search);
-    myHistory.push(myHistory.location.pathname + '?' + searchParams.toString());
+    myHistory.push(myHistory.location.pathname + '?' + searchParams.toString() + myHistory.location.hash);
     
     fetchFeatureSupport(search);
   }

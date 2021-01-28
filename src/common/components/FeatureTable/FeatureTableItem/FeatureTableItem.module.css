@@ -25,3 +25,7 @@
 .details > :last-child {
   margin-bottom: 0;
 }
+
+.browsernotes a {
+  margin-right: .7em;
+}

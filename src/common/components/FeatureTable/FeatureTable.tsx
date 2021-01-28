@@ -28,7 +28,7 @@ export function FeatureTable() {
         </thead>
         <tbody>
           {Object.entries(features).map(([name, feature]) => {
-            return <FeatureTableItem name={name} feature={feature} />
+            return <FeatureTableItem name={name} feature={feature} key={name} />
           })}
         </tbody>
       </table>

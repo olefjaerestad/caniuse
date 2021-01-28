@@ -35,7 +35,7 @@ export function Icon({color, icon}: IProps) {
   }
 
   return (
-    <span className="icon">
+    <span className={`icon ${icon}`}>
       {IconElement && <IconElement color={color} />}
     </span>
   )
