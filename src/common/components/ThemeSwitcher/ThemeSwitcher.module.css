@@ -4,7 +4,7 @@
   text-align: right;
   direction: rtl; /* Overflow text to left instead of right */
   color: hsl(var(--color-text));
-  background-color: transparent;
+  background-color: hsl(var(--color-background));
   width: 3em;
   height: 3em;
   padding: 0;
@@ -14,6 +14,7 @@
   border-radius: 1.5em;
   appearance: none;
   overflow: hidden;
+  filter: drop-shadow(1px 1px 2px hsla(var(--color-shadow), .5));
   transition: all .2s ease-in-out;
 }
 @media (pointer: fine) {
