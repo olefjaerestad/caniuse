@@ -19,7 +19,7 @@ type TSupportStringToIconInfoMapping = {
   }
 }
 
-type TCanIUseSupportString = 'y' | 'y x' | 'n' | 'a' | 'a x' | 'a d' | 'u';
+type TCanIUseSupportString = 'a' | 'a d' | 'a x'  | 'n' | 'p' | 'u' | 'y' | 'y x';
 
 type TCanIUseSupportStringToIconInfoMapping = {
   [key in TCanIUseSupportString]: {
@@ -44,34 +44,38 @@ const supportStringToIcon: TSupportStringToIconInfoMapping = {
 }
 
 const caniuseSupportStringToIcon: TCanIUseSupportStringToIconInfoMapping = {
-  n: {
-    color: 'hsl(var(--color-error))',
-    icon: 'cross',
-  },
   a: {
     color: 'hsl(var(--color-info))',
-    icon: 'checkmark',
-  },
-  'a x': {
-    color: 'hsl(var(--color-info))',
-    icon: 'checkmark',
+    icon: 'checkmark'
   },
   'a d': {
     color: 'hsl(var(--color-info))',
-    icon: 'checkmark',
+    icon: 'checkmark'
+  },
+  'a x': {
+    color: 'hsl(var(--color-info))',
+    icon: 'checkmark'
+  },
+  n: {
+    color: 'hsl(var(--color-error))',
+    icon: 'cross'
+  },
+  p: {
+    color: 'hsl(var(--color-info))',
+    icon: 'checkmark'
   },
   u: {
     color: 'hsl(var(--color-info))',
-    icon: 'checkmark',
+    icon: 'checkmark'
   },
   y: {
     color: 'hsl(var(--color-success))',
-    icon: 'checkmark',
+    icon: 'checkmark'
   },
   'y x': {
     color: 'hsl(var(--color-success))',
-    icon: 'checkmark',
-  },
+    icon: 'checkmark'
+  }
 }
 
 export function FeatureTableItem({name, feature}: IProps) {
@@ -242,6 +246,7 @@ export function FeatureTableItem({name, feature}: IProps) {
               </thead>
               <tbody>
                 {Object.entries(supportedInLatestBrowserVersion).map(([browser, supportStatus]) => {
+                  console.log({supportStatus});
                   return (
                     <tr>
                       <th>{browser}</th>

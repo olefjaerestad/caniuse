@@ -49,7 +49,6 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Prod files (bundled, production ready files) are located in `build`. These are compiled from `src`.
 
 ## Todo
-- Make custom fonts work in prod build.
 - Add screen reader friendly alternatives to meaning bearing icons.
 - Use React dev script in dev.
 - Inline TODOs.
@@ -78,3 +77,4 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Make CSS work without JS in browser for prod.
 - Rename 'functionality' to 'feature' across the codebase.
 - Theming.
+- Make custom fonts work in prod build.

@@ -9,7 +9,7 @@ let fetchIsRedefined: boolean = false;
  * Get the progress of current fetch event(s).
  * Handy for loading spinners etc.
  * 
- * Usage from within a React functional component:
+ * Usage from within a React function component:
  * const progress = useFetchProgress(0);
  */
 export function useFetchProgress(defaultProgress: number) {
@@ -32,7 +32,7 @@ export function useFetchProgress(defaultProgress: number) {
 }
 
 /**
- * Redfine fetch() so we can emit a CustomEvent whenever fetch progress changes.
+ * Redefine fetch() so we can emit a CustomEvent whenever fetch progress changes.
  * 
  * https://stackoverflow.com/questions/44728723/hook-all-fetch-api-ajax-requests
  * https://twitter.com/umaar/status/917789464658890753

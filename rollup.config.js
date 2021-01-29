@@ -1,4 +1,5 @@
 import commonjs from '@rollup/plugin-commonjs';
+import copy from 'rollup-plugin-copy';
 import postcss from 'rollup-plugin-postcss';
 import postcssImport from 'postcss-import';
 import replace from '@rollup/plugin-replace';
@@ -57,6 +58,13 @@ export default [
         // We avoid final replacement in output bundle, since there are certain occurences we don't want to replace.
         '__NODE_ENV__': (id) => id === clientOutputFilename ? '__NODE_ENV__' : JSON.stringify( 'production' ),
         exclude: ['src/common/globals.ts'],
+      }),
+      // Copy fonts
+      copy({
+        targets: [{
+          src: 'src/client/fonts/*',
+          dest: 'build/client/fonts',
+        }],
       }),
       // Bundle imported node_modules in output:
       nodeResolve(),
