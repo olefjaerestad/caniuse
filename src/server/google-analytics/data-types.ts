@@ -17,13 +17,14 @@ export type TBrowserUsageData = {
   }
 }
 
-// TODO: Put these numbers in config.json?
-export type TBrowserUsageDataFilter = {
+export type TBrowserUsageDataFilters = {
   [key in TBrowser]?: {
     criticalFeatures: {
+      // Only care about this browser if at least `minUsersPercentage` are using it.
       minUsersPercentage: number;
     }
     nonCriticalFeatures: {
+      // Only care about this browser if at least `minUsersPercentage` are using it.
       minUsersPercentage: number;
     }
   }

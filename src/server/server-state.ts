@@ -7,7 +7,7 @@ import {
 import { getBrowserSupportData, getMockBrowserSupportData } from './caniuse-data/data';
 import { getConfig } from './util/config';
 import { ICanIUseData } from './caniuse-data/data-types';
-import { IBrowserUsageDataByCriticality, TBrowserUsageDataFilter } from './google-analytics/data-types';
+import { IBrowserUsageDataByCriticality } from './google-analytics/data-types';
 import { analyticsreporting_v4 } from 'googleapis';
 
 interface IServerState {
@@ -24,32 +24,7 @@ const serverState: IServerState = {};
 
 const googleAnalytics = getConfig('googleAnalytics');
 const { days } = googleAnalytics.params;
-const filters: TBrowserUsageDataFilter = {
-  'Chrome': {
-    criticalFeatures: {
-      minUsersPercentage: 1,
-    },
-    nonCriticalFeatures: {
-      minUsersPercentage: 5,
-    },
-  },
-  'Safari': {
-    criticalFeatures: {
-      minUsersPercentage: 1,
-    },
-    nonCriticalFeatures: {
-      minUsersPercentage: 5,
-    },
-  },
-  'Firefox': {
-    criticalFeatures: {
-      minUsersPercentage: 1,
-    },
-    nonCriticalFeatures: {
-      minUsersPercentage: 5,
-    },
-  },
-};
+const filters = googleAnalytics.filters;
 
 /* export function setServerState(props: ISetServerStateParam) {
   Object.entries(props).forEach(([key, val]) => {

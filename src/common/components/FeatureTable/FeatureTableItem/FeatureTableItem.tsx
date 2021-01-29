@@ -121,7 +121,7 @@ export function FeatureTableItem({name, feature}: IProps) {
 
         <div className="grid grid--spacing">
           <div className="cell--6">
-            <h3>Support status by browser - critical threshold</h3>
+            <h3>Support status by browser - mission critical</h3>
             <table className="table--small">
               <caption className="sr">Table displaying whether or not currently selected feature can be used as a critical feature in a specific browser.</caption>
               <thead>
@@ -131,9 +131,9 @@ export function FeatureTableItem({name, feature}: IProps) {
                 </tr>
               </thead>
               <tbody>
-                {Object.entries(supportStatusByBrowserCritical).map(([browser, supportStatus]) => {
+                {Object.entries(supportStatusByBrowserCritical).map(([browser, supportStatus], i: number) => {
                   return (
-                    <tr>
+                    <tr key={i}>
                       <th>{browser}</th>
                       <td>
                         <span className="sr">{mapSupportStatusToReadableString(supportStatus)}</span>
@@ -150,7 +150,7 @@ export function FeatureTableItem({name, feature}: IProps) {
           </div>
 
           <div className="cell--6">
-            <h3>Support status by browser - non-critical threshold</h3>
+            <h3>Support status by browser - nice-to-have</h3>
             <table className="table--small">
               <caption className="sr">Table displaying whether or not currently selected feature can be used as a non-critical feature in a specific browser.</caption>
               <thead>
@@ -160,9 +160,9 @@ export function FeatureTableItem({name, feature}: IProps) {
                 </tr>
               </thead>
               <tbody>
-                {Object.entries(supportStatusByBrowserNonCritical).map(([browser, supportStatus]) => {
+                {Object.entries(supportStatusByBrowserNonCritical).map(([browser, supportStatus], i: number) => {
                   return (
-                    <tr>
+                    <tr key={i}>
                       <th>{browser}</th>
                       <td>
                         <span className="sr">{mapSupportStatusToReadableString(supportStatus)}</span>
@@ -191,9 +191,9 @@ export function FeatureTableItem({name, feature}: IProps) {
                 </tr>
               </thead>
               <tbody>
-                {Object.entries(firstPartiallySupportedIn).map(([browser, version]) => {
+                {Object.entries(firstPartiallySupportedIn).map(([browser, version], i: number) => {
                   return (
-                    <tr>
+                    <tr key={i}>
                       <th>{browser}</th>
                       <td>{version}</td>
                     </tr>
@@ -214,9 +214,9 @@ export function FeatureTableItem({name, feature}: IProps) {
                 </tr>
               </thead>
               <tbody>
-                {Object.entries(firstFullySupportedIn).map(([browser, version]) => {
+                {Object.entries(firstFullySupportedIn).map(([browser, version], i: number) => {
                   return (
-                    <tr>
+                    <tr key={i}>
                       <th>{browser}</th>
                       <td>{version}</td>
                     </tr>
@@ -240,9 +240,9 @@ export function FeatureTableItem({name, feature}: IProps) {
                 </tr>
               </thead>
               <tbody>
-                {Object.entries(supportedInLatestBrowserVersion).map(([browser, supportStatus]) => {
+                {Object.entries(supportedInLatestBrowserVersion).map(([browser, supportStatus], i: number) => {
                   return (
-                    <tr>
+                    <tr key={i}>
                       <th>{browser}</th>
                       <td>
                         <span className="sr">{mapCanIUseSupportStatusToReadableString(getSupportStatus(supportStatus))}</span>
@@ -265,8 +265,8 @@ export function FeatureTableItem({name, feature}: IProps) {
             <br />
             <h3>Notes</h3>
             <ol>
-              {Object.entries(notesByNum).map(([num, note]) => {
-                return <li id={`feature--${name}--note--${num}`}><span dangerouslySetInnerHTML={{__html: parseMarkdown(note)}}></span></li>;
+              {Object.entries(notesByNum).map(([num, note], i: number) => {
+                return <li key={i} id={`feature--${name}--note--${num}`}><span dangerouslySetInnerHTML={{__html: parseMarkdown(note)}}></span></li>;
               })}
             </ol>
           </>

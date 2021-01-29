@@ -13,8 +13,8 @@ export function FeatureTable() {
       <div className={styles.header} aria-hidden="true">
         <div className={styles.header__row}>
           <div className={styles.header__data}>Feature</div>
-          <div className={styles.header__data}>Use as critical</div>
-          <div className={styles.header__data}>Use as non-critical</div>
+          <div className={styles.header__data}>Mission critical</div>
+          <div className={styles.header__data}>Nice-to-have</div>
         </div>
       </div>
       <table className={styles.table}>
@@ -22,8 +22,8 @@ export function FeatureTable() {
         <thead className="sr">
           <tr>
             <th>Feature</th>
-            <th>Use as critical</th>
-            <th>Use as non-critical</th>
+            <th>Mission critical</th>
+            <th>Nice-to-have</th>
           </tr>
         </thead>
         <tbody>

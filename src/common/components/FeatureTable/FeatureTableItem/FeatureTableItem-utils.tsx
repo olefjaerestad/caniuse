@@ -13,8 +13,9 @@ export function mapSupportStatusToNoteAnchors(supportStatus: string, featureName
     return null;
   }
 
-  return supportStatus.substring(hashIndex).split(' ').map((note: string) => {
+  return supportStatus.substring(hashIndex).split(' ').map((note: string, i: number) => {
     return <a 
+      key={i}
       href={`#feature--${featureName}--note--${note.replace('#', '')}`} 
       title={`Go to note ${note.replace('#', '')} about ${featureName}`}>
         {note}

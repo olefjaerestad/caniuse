@@ -1,5 +1,5 @@
 # caniuse
-Check if you can use a certain CSS or JS feature on your site based on browser usage data from Google Analytics.
+Check if you can use a certain CSS or JS feature as mission critical or nice-to-have on your site based on browser usage data from Google Analytics.
 
 ![The user interface displaying data about the support status of a browser feature](screenshot.png "The UI")
 
@@ -37,6 +37,8 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 > Dev supports a mock mode, where the app uses local mock data instead of doing actual http calls. To use mock mode, run `npm run mock:generate` (this will create a `mock` folder with the data. Requires a network connection.), then `npm run dev:mock`. Handy for developing offline.
 
 ## Prod
+Duplicate `config/config-example.json` into `config/config.json` and add your info here. Remember to delete the comments.
+
 `npm i`
 
 `npm run build`

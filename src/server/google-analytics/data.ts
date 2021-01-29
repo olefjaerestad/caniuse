@@ -13,7 +13,7 @@ import {
 import { reporting } from './auth';
 import {
   TBrowserUsageData, 
-  TBrowserUsageDataFilter, 
+  TBrowserUsageDataFilters, 
   IBrowserUsageDataByCriticality, 
   IBrowserUsageDataByCriticalityRaw
 } from './data-types';
@@ -79,7 +79,7 @@ export function getMockBrowserUsageData(): analyticsreporting_v4.Schema$GetRepor
  * @param data 
  * @param filters 
  */
-export function filterBrowserUsageData(data: analyticsreporting_v4.Schema$GetReportsResponse, filters: TBrowserUsageDataFilter): IBrowserUsageDataByCriticalityRaw {
+export function filterBrowserUsageData(data: analyticsreporting_v4.Schema$GetReportsResponse, filters: TBrowserUsageDataFilters): IBrowserUsageDataByCriticalityRaw {
   // const dataCopy: analyticsreporting_v4.Schema$GetReportsResponse = {...data};
   // We're modifying deeply nested properties, so we need a new reference:
   const dataCopy: analyticsreporting_v4.Schema$GetReportsResponse = JSON.parse(JSON.stringify(data));

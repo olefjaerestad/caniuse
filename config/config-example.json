@@ -17,6 +17,32 @@
         "viewId": "123" // Your GA viewId here.
       }
     },
+    "filters": { // See TBrowserUsageDataFilters type. Non-present browsers will default to using the first one.
+      "Chrome": {
+        "criticalFeatures": {
+          "minUsersPercentage": 1
+        },
+        "nonCriticalFeatures": {
+          "minUsersPercentage": 5
+        }
+      },
+      "Safari": {
+        "criticalFeatures": {
+          "minUsersPercentage": 1
+        },
+        "nonCriticalFeatures": {
+          "minUsersPercentage": 5
+        }
+      },
+      "Firefox": {
+        "criticalFeatures": {
+          "minUsersPercentage": 1
+        },
+        "nonCriticalFeatures": {
+          "minUsersPercentage": 5
+        }
+      }
+    },
     "params": { // Params for data fetching from GA
       "days": 180
     }

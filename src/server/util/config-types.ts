@@ -1,7 +1,8 @@
+import { TBrowserUsageDataFilters } from '../google-analytics/data-types';
+
 interface IGoogleAnalyticsSite {
   viewId: string;
 }
-
 interface IGoogleAnalyticsServiceAccountAuthInfo {
   type: string;
   project_id: string;
@@ -21,6 +22,7 @@ export interface IConfig {
     domains: {
       [domain: string]: IGoogleAnalyticsSite;
     };
+    filters: TBrowserUsageDataFilters;
     params: {
       days: number;
     }

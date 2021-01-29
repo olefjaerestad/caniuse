@@ -29,7 +29,7 @@ function switchCssValues(propertyMapping: ICssPropertiesAlternateMapping) {
 }
 
 export function ThemeSwitcher() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const buttonEl = useRef<HTMLButtonElement>();
 
   function handleClick(e: MouseEvent) {    

@@ -12,16 +12,16 @@
    * Usage: hsl(var(--color-background)), hsla(var(--color-background), .5) 
    * Alternate colors are used for theming.
    */
-  --color-background: 51, 32%, 91%;
-  --color-background-alternate: 203, 90%, 10%;
-  --color-foreground: 0, 0%, 100%;
-  --color-foreground-alternate: 201, 87%, 16%;
-  --color-primary: 51, 100%, 50%;
-  --color-primary-alternate: 150, 80%, 30%;
-  --color-text: 0, 0%, 0%;
-  --color-text-alternate: 0, 0%, 100%;
-  --color-anchor: 30, 80%, 50%;
-  --color-anchor-alternate: 150, 80%, 45%;
+   --color-background: 203, 90%, 10%;
+   --color-background-alternate: 51, 32%, 91%;
+  --color-foreground: 201, 87%, 16%;
+  --color-foreground-alternate: 0, 0%, 100%;
+  --color-primary: 150, 80%, 30%;
+  --color-primary-alternate: 51, 100%, 50%;
+  --color-text: 0, 0%, 100%;
+  --color-text-alternate: 0, 0%, 0%;
+  --color-anchor: 150, 80%, 45%;
+  --color-anchor-alternate: 30, 80%, 50%;
   --color-shadow: 0, 0%, 0%;
   --color-shadow-alternate: 0, 0%, 0%;
   --color-success: 150, 80%, 40%;
