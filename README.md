@@ -52,6 +52,10 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Dev files (used by dev server, for local development) are located in `dev`. These are compiled from `src`.
 - Prod files (bundled, production ready files) are located in `build`. These are compiled from `src`.
 
+## Related reading
+- [https://github.com/snowpackjs/snowpack/issues/1052](https://github.com/snowpackjs/snowpack/issues/1052)
+- [https://github.com/snowpackjs/snowpack/issues/376](https://github.com/snowpackjs/snowpack/issues/376)
+
 ## Todo
 - Inline TODOs.
 - Write tests.
@@ -60,7 +64,3 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 - Add dropdown menu for selecting which website to fetch GA data from.
 
 ## In progress
-
-## Some related reading
-- [https://github.com/snowpackjs/snowpack/issues/1052](https://github.com/snowpackjs/snowpack/issues/1052)
-- [https://github.com/snowpackjs/snowpack/issues/376](https://github.com/snowpackjs/snowpack/issues/376)
