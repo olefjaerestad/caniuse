@@ -1,6 +1,8 @@
 # caniuse
 Check if you can use a certain CSS or JS feature on your site based on browser usage data from Google Analytics.
 
+![The user interface displaying data about the support status of a browser feature](screenshot.png "The UI")
+
 ## Requirements
 A node.js environment that supports:
 - [Dynamic imports](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#dynamic_imports)
