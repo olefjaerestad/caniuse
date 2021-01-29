@@ -50,7 +50,9 @@ export function ThemeSwitcher() {
       ref={buttonEl}
     >
       <span className={styles.button__inner}>
-        <span className={styles.button__text}>Switch theme</span>
+        <span className={styles.button__text}>
+          Switch<span className="sr"> to {theme === 'light' ? 'dark' : 'light'} color</span> theme
+        </span>
         {
           theme === 'light' 
           ? <Icon icon="moon" color="hsl(var(--color-primary-alternate))" /> 

@@ -1,7 +1,9 @@
 import React, { ReactElement } from 'react';
+import { TCanIUseSupportString } from './FeatureTableItem-types';
+import { TSupportStatusString } from '../../../types/feature-types';
 
-export function getSupportStatus(supportStatus: string): string {
-  return supportStatus.split(' #')[0];
+export function getSupportStatus(supportStatus: string): TCanIUseSupportString {
+  return supportStatus.split(' #')[0] as TCanIUseSupportString;
 }
 
 export function mapSupportStatusToNoteAnchors(supportStatus: string, featureName: string): ReactElement[] {
@@ -12,6 +14,29 @@ export function mapSupportStatusToNoteAnchors(supportStatus: string, featureName
   }
 
   return supportStatus.substring(hashIndex).split(' ').map((note: string) => {
-    return <a href={`#feature--${featureName}--note--${note.replace('#', '')}`}>{note}</a>;
+    return <a 
+      href={`#feature--${featureName}--note--${note.replace('#', '')}`} 
+      title={`Go to note ${note.replace('#', '')} about ${featureName}`}>
+        {note}
+      </a>;
   });
+}
+
+export function mapSupportStatusToReadableString(s: string) {
+  return s.replace(/_/g, ' ').replace(/^./, (m) => `${m}`.toUpperCase());
+}
+
+export function mapCanIUseSupportStatusToReadableString(s: TCanIUseSupportString) {
+  const mappings: {[key in TCanIUseSupportString]: TSupportStatusString} = {
+    a: 'partial_support',
+    'a d': 'partial_support',
+    'a x': 'partial_support',
+    n: 'not_supported',
+    p: 'partial_support',
+    u: 'partial_support',
+    y: 'supported',
+    'y x': 'supported',
+  }
+
+  return mapSupportStatusToReadableString(mappings[s]);
 }

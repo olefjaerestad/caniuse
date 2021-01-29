@@ -9,8 +9,10 @@ export type TFeatureSupportedInLatestBrowserVersion = {
   [agentName in TCanIUseAgentName]?: string;
 }
 
+export type TSupportStatusString = 'supported' | 'not_supported' | 'partial_support';
+
 export type TSupportStatus = {
-  [key in TBrowser]: 'supported' | 'not_supported' | 'partial_support';
+  [key in TBrowser]: TSupportStatusString;
 }
 
 export interface IFeatures {

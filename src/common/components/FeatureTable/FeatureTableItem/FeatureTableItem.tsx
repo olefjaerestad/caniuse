@@ -1,31 +1,22 @@
 import React, { useState, MouseEvent, KeyboardEvent } from 'react';
 import styles from './FeatureTableItem.module.css';
-import { getSupportStatus, mapSupportStatusToNoteAnchors } from './FeatureTableItem-utils';
+import { 
+  getSupportStatus,
+  mapCanIUseSupportStatusToReadableString,
+  mapSupportStatusToNoteAnchors,
+  mapSupportStatusToReadableString 
+} from './FeatureTableItem-utils';
 import { Icon } from '../../Icon/Icon';
 import { IFeature } from '../../../types/feature-types';
-import { IProps as IconProps } from '../../Icon/Icon';
 import { parseMarkdown } from '../../../util/markdown-utils';
-import { TSupportStatus } from '../../../../common/types/feature-types';
+import { 
+  TCanIUseSupportStringToIconInfoMapping, 
+  TSupportStringToIconInfoMapping 
+} from './FeatureTableItem-types';
 
 interface IProps {
   name: string,
   feature: IFeature,
-}
-
-type TSupportStringToIconInfoMapping = {
-  [key in TSupportStatus['key']]: {
-    color: IconProps['color'],
-    icon: IconProps['icon'],
-  }
-}
-
-type TCanIUseSupportString = 'a' | 'a d' | 'a x'  | 'n' | 'p' | 'u' | 'y' | 'y x';
-
-type TCanIUseSupportStringToIconInfoMapping = {
-  [key in TCanIUseSupportString]: {
-    color: IconProps['color'],
-    icon: IconProps['icon'],
-  }
 }
 
 const supportStringToIcon: TSupportStringToIconInfoMapping = {
@@ -112,12 +103,14 @@ export function FeatureTableItem({name, feature}: IProps) {
         onKeyUp={handleClick}
       ><h2>{title}</h2></th>
       <td>
+        <span className="sr">{mapSupportStatusToReadableString(supportStatusCritical)}</span>
         <Icon 
           icon={supportStringToIcon[supportStatusCritical].icon} 
           color={supportStringToIcon[supportStatusCritical].color} 
         />
       </td>
       <td>
+        <span className="sr">{mapSupportStatusToReadableString(supportStatusNonCritical)}</span>
         <Icon 
           icon={supportStringToIcon[supportStatusNonCritical].icon} 
           color={supportStringToIcon[supportStatusNonCritical].color} 
@@ -143,6 +136,7 @@ export function FeatureTableItem({name, feature}: IProps) {
                     <tr>
                       <th>{browser}</th>
                       <td>
+                        <span className="sr">{mapSupportStatusToReadableString(supportStatus)}</span>
                         <Icon 
                           icon={supportStringToIcon[supportStatus].icon} 
                           color={supportStringToIcon[supportStatus].color} 
@@ -171,6 +165,7 @@ export function FeatureTableItem({name, feature}: IProps) {
                     <tr>
                       <th>{browser}</th>
                       <td>
+                        <span className="sr">{mapSupportStatusToReadableString(supportStatus)}</span>
                         <Icon 
                           icon={supportStringToIcon[supportStatus].icon} 
                           color={supportStringToIcon[supportStatus].color} 
@@ -246,11 +241,11 @@ export function FeatureTableItem({name, feature}: IProps) {
               </thead>
               <tbody>
                 {Object.entries(supportedInLatestBrowserVersion).map(([browser, supportStatus]) => {
-                  console.log({supportStatus});
                   return (
                     <tr>
                       <th>{browser}</th>
                       <td>
+                        <span className="sr">{mapCanIUseSupportStatusToReadableString(getSupportStatus(supportStatus))}</span>
                         <Icon 
                           icon={caniuseSupportStringToIcon[getSupportStatus(supportStatus)].icon} 
                           color={caniuseSupportStringToIcon[getSupportStatus(supportStatus)].color} 
