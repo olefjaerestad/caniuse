@@ -61,24 +61,6 @@ Duplicate `config/config-example.json` into `config/config.json` and add your in
 
 ## In progress
 
-## Done
-- Prod bundling so that `npm run build` and `npm run start` works.
-- Avoid outputting double `<body>` (one for SSR and one client side).
-- Fix frontend console errors.
-- Delete dev folder before dev'ing.
-- Delete build folder before building.
-- Increase `npm run dev` speed. Only Snowpack transpile web_modules on first run: https://github.com/snowpackjs/snowpack/issues/1052, https://github.com/snowpackjs/snowpack/issues/376
-- Load browser usage and browser support data immediately when server starts up?
-- `npm run dev:mock`.
-- Set NODE_ENV at compile time on `npm run build` instead of runtime on `npm run start`, for more efficient tree shaking?
-- Add endpoint(s) for refreshing browser usage and browser support data in server state.
-- Make snowpack support '@olefjaerestad/hmr' without adding it to externalPackage.
-- HMR.
-- Make `npm run build` and `npm run start` work again.
-- Make client side redux state use the redux state from server.
-- Make CSS work without JS in browser for prod.
-- Rename 'functionality' to 'feature' across the codebase.
-- Theming.
-- Make custom fonts work in prod build.
-- Add screen reader friendly alternatives to meaning bearing icons.
-- Use React dev script in dev.
+## Some related reading
+- [https://github.com/snowpackjs/snowpack/issues/1052](https://github.com/snowpackjs/snowpack/issues/1052)
+- [https://github.com/snowpackjs/snowpack/issues/376](https://github.com/snowpackjs/snowpack/issues/376)
