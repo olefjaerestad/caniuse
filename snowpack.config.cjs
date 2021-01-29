@@ -3,6 +3,9 @@ module.exports = {
     out: 'dev',
   },
   packageOptions: {
+    env: {
+      NODE_ENV: true,
+    },
     // Add all server packages here:
     external: [
       'express',

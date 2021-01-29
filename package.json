@@ -62,7 +62,7 @@
     "dev": "rm -rf dev && concurrently \"npm run css:generatetypings\" \"npm run dev:watch\" \"npm run hmr:serve\" \"npm run dev:serve\"",
     "dev:mock": "rm -rf dev && concurrently \"npm run css:generatetypings\" \"IS_MOCK_MODE=true npm run dev:watch\" \"npm run hmr:serve\" \"IS_MOCK_MODE=true npm run dev:serve\"",
     "dev:serve": "NODE_ENV=development nodemon --experimental-modules --experimental-specifier-resolution=node scripts/dev.js",
-    "dev:watch": "snowpack build --watch",
+    "dev:watch": "NODE_ENV=development snowpack build --watch",
     "hmr:serve": "node hmr-server.js",
     "mock:generate": "node scripts/generate-mock-data.js",
     "start": "NODE_ENV=production node --experimental-modules --experimental-specifier-resolution=node scripts/prod.cjs"
