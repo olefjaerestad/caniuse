@@ -1,5 +1,5 @@
 # caniuse
-Check if you can use a certain CSS or JS feature as mission critical or nice-to-have on your site based on browser usage data from Google Analytics.
+Check if you can use a certain CSS or JS feature as mission critical or nice-to-have on your site based on browser usage data from Google Analytics. Not to be confused with (but still big thanks to) [https://github.com/Fyrd/caniuse](https://github.com/Fyrd/caniuse).
 
 ![The user interface displaying data about the support status of a browser feature](screenshot.png "The UI")
 
