@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 const events = {
   progresschange: 'fetch.progresschange',
+  start: 'fetch.start',
 };
 let fetchIsRedefined: boolean = false;
 
@@ -12,8 +13,14 @@ let fetchIsRedefined: boolean = false;
  * Usage from within a React function component:
  * const progress = useFetchProgress(0);
  */
-export function useFetchProgress(defaultProgress: number) {
+export function useFetchProgress(defaultProgress: number): [boolean, number] {
+  const [isStarted, setIsStarted] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(defaultProgress);
+
+  function handleStart(e: CustomEvent) {
+    setIsStarted(true);
+    setProgress(0);
+  }
 
   function handleProgressChange(e: CustomEvent) {
     setProgress(e.detail.progress);
@@ -24,11 +31,16 @@ export function useFetchProgress(defaultProgress: number) {
   }
 
   useEffect(() => {
+    globalThis.addEventListener(events.start, handleStart);
     globalThis.addEventListener(events.progresschange, handleProgressChange);
-    return () => globalThis.removeEventListener(events.progresschange, handleProgressChange);
+
+    return () => {
+      globalThis.removeEventListener(events.start, handleStart);
+      globalThis.removeEventListener(events.progresschange, handleProgressChange);
+    }
   }, []);
 
-  return progress;
+  return [isStarted, progress];
 }
 
 /**
@@ -47,22 +59,28 @@ function redefineFetch() {
   let originalFetch = globalThis.fetch;
 
   // Rewrite window.fetch to suit our needs:
-  globalThis.fetch = (input: RequestInfo, init: RequestInit) => originalFetch(input, init)
-    .then(response => new Promise(async (resolve) => {
-      const response2 = response.clone();
-      const reader = response2.body.getReader();
-      const contentLengthHeader = response2.headers.get('Content-Length');
-      const resourceSize = parseInt(contentLengthHeader, 10);
-      await readStream(reader, resourceSize);
+  globalThis.fetch = (input: RequestInfo, init: RequestInit) => {
+    const event = new CustomEvent(events.start, {detail: {input, progress: 0}})
+    
+    window.dispatchEvent(event);
 
-      // resolve(taperFunction(response));
-      resolve(response);
-    }));
+    return originalFetch(input, init)
+      .then(response => new Promise(async (resolve) => {
+        const response2 = response.clone();
+        const reader = response2.body.getReader();
+        const contentLengthHeader = response2.headers.get('Content-Length');
+        const resourceSize = parseInt(contentLengthHeader, 10);
+        await readStream(reader, resourceSize, input);
+
+        // resolve(taperFunction(response));
+        resolve(response);
+      }));
+  }
 
   fetchIsRedefined = true;
 }
 
-async function readStream(reader: ReadableStreamDefaultReader, resourceSize = 0, totalChunkSize = 0, chunkCount = 0): Promise<number> {
+async function readStream(reader: ReadableStreamDefaultReader, resourceSize = 0, requestInfo: RequestInfo, totalChunkSize = 0, chunkCount = 0): Promise<number> {
   const {value: {length} = {}, done} = await reader.read();
 
   if (done) {
@@ -74,9 +92,9 @@ async function readStream(reader: ReadableStreamDefaultReader, resourceSize = 0,
   // const percentComplete = Math.round((runningTotal / resourceSize) * 100);
   // const progress = `${percentComplete}% (chunk ${chunkCount})`;
   const progress = Math.round((runningTotal / resourceSize) * 100);
-  const event = new CustomEvent(events.progresschange, {detail: {progress}})
+  const event = new CustomEvent(events.progresschange, {detail: {input: requestInfo, progress}})
 
   window.dispatchEvent(event);
 
-  return readStream(reader, resourceSize, runningTotal, chunkCount + 1);
+  return readStream(reader, resourceSize, requestInfo, runningTotal, chunkCount + 1);
 }

@@ -5,8 +5,19 @@
   top: calc(50% - 1.5rem);
   left: calc(50% - 1.5rem);
   filter: drop-shadow(2px 2px 2px hsla(var(--color-shadow), .3));
+  animation: fadeIn .1s;
 }
 
 .symbol path, .symbol circle {
   transition: stroke-dashoffset .2s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
