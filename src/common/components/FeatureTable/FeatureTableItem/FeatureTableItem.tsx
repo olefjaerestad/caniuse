@@ -147,6 +147,8 @@ export function FeatureTableItem({name, feature}: IProps) {
                 })}
               </tbody>
             </table>
+            <br/>
+            <p>Note: GA sometimes doesn't report the versions of the audiences browsers, and as such, these statuses are to be taken with a grain of salt. Especially true for in-app mobile browsers.</p>
           </div>
 
           <div className="cell--6">

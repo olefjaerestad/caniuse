@@ -14,6 +14,7 @@ const gaBrowserNameToCanIUseBrowserName: TBrowserMapping = {
   'Firefox': 'firefox',
   'Opera': 'opera',
   'Safari': 'safari',
+  'Safari (in-app)': 'ios_saf',
   // TODO: Still need to map to these caniuse browsers.
   // 'and_chr' // Chrome for Android
   // 'and_ff' // Firefox for Android
@@ -80,10 +81,10 @@ export function getBrowserSupport(
       const browserName = browserUsageDataCritical[i][0];
       const usageData = browserUsageDataCritical[i][1];
       supportStatusByBrowserCritical[browserName] = getSupportStatus({
+        audienceVersion: usageData.minVersion.version,
         partiallySupportedInVersion: firstPartiallySupportedIn[
           gaBrowserNameToCanIUseBrowserName[browserName]
         ],
-        audienceVersion: usageData.minVersion.version,
         supportedInVersion: firstFullySupportedIn[
           gaBrowserNameToCanIUseBrowserName[browserName]
         ],
@@ -95,10 +96,10 @@ export function getBrowserSupport(
       const browserName = browserUsageDataNonCritical[i][0];
       const usageData = browserUsageDataNonCritical[i][1];
       supportStatusByBrowserNonCritical[browserName] = getSupportStatus({
+        audienceVersion: usageData.minVersion.version,
         partiallySupportedInVersion: firstPartiallySupportedIn[
           gaBrowserNameToCanIUseBrowserName[browserName]
         ],
-        audienceVersion: usageData.minVersion.version,
         supportedInVersion: firstFullySupportedIn[
           gaBrowserNameToCanIUseBrowserName[browserName]
         ],
@@ -166,6 +167,16 @@ function getSupportStatus(
     supportedInVersion: string;
   }
 ): TSupportStatus[keyof TSupportStatus] {
+  // Browser version is sometimes '(not set)' in GA.
+  audienceVersion = audienceVersion === '(not set)' ? undefined : audienceVersion;
+
+  audienceVersion = normalizeVersionNumber(audienceVersion);
+  partiallySupportedInVersion = normalizeVersionNumber(partiallySupportedInVersion);
+  supportedInVersion = normalizeVersionNumber(supportedInVersion);
+
+  if (!audienceVersion) {
+    return 'not_supported';
+  }
   if (!supportedInVersion && !partiallySupportedInVersion) {
     return 'not_supported';
   }
@@ -213,10 +224,22 @@ function getSupportStatus(
   return 'not_supported';
 }
 
+/**
+ * '13.4.1' -> [13, 4, 1]
+ */
 function getVersionNumberArray(version: string): number[] {
   if (version === undefined) {
     return [];
   }
 
-  return version.split('.').map((subVersion: string) => Number(subVersion));
+  return version.split('.').map((subVersion: string) => parseInt(subVersion, 10));
+}
+
+/**
+ * Version ranges, e.g. '9.0-9.2', are common in data from caniuse.com.
+ * This function removes everything from and including '-', so all ranged versions are
+ * treated as regular versions, e.g. '9.0'
+ */
+function normalizeVersionNumber(version: string): string {
+  return version ? version.split('-')[0] : '';
 }
