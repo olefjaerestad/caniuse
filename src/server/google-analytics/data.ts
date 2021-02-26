@@ -92,6 +92,13 @@ export function filterBrowserUsageData(data: analyticsreporting_v4.Schema$GetRep
   nonCriticalFeaturesData.reports[0].data.rows = [];
   data.reports[0].data.rows.forEach((row: analyticsreporting_v4.Schema$ReportRow) => {
     const browser = row.dimensions[0];
+    const version = row.dimensions[1];
+
+    // Browser version is sometimes '(not set)' in GA. We ignore these.
+    if (version === '(not set)') {
+      return;
+    }
+    
     const usersPercentage = Number(row.metrics[0].values[0]) / totalUsers * 100;
     const minUsersPercentageCritical = filters[browser] 
       ? filters[browser].criticalFeatures.minUsersPercentage 
@@ -138,7 +145,7 @@ export function formatBrowserUsageData(data: IBrowserUsageDataByCriticalityRaw):
           versions: [],
         }
       }
-      
+
       acc[browser].versions.push({
         users,
         usersPercentage,

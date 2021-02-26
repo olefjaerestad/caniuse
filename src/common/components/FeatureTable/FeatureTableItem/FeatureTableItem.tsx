@@ -121,7 +121,7 @@ export function FeatureTableItem({name, feature}: IProps) {
 
         <div className="grid grid--spacing">
           <div className="cell--6">
-            <h3>Support status by browser - mission critical</h3>
+            <h3>Can be used as mission critical, by browser</h3>
             <table className="table--small">
               <caption className="sr">Table displaying whether or not currently selected feature can be used as a critical feature in a specific browser.</caption>
               <thead>
@@ -147,12 +147,10 @@ export function FeatureTableItem({name, feature}: IProps) {
                 })}
               </tbody>
             </table>
-            <br/>
-            <p>Note: GA sometimes doesn't report the versions of the audiences browsers, and as such, these statuses are to be taken with a grain of salt. Especially true for in-app mobile browsers.</p>
           </div>
 
           <div className="cell--6">
-            <h3>Support status by browser - nice-to-have</h3>
+            <h3>Can be used as nice-to-have, by browser</h3>
             <table className="table--small">
               <caption className="sr">Table displaying whether or not currently selected feature can be used as a non-critical feature in a specific browser.</caption>
               <thead>

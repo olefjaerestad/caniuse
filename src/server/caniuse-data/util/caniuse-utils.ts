@@ -167,9 +167,6 @@ function getSupportStatus(
     supportedInVersion: string;
   }
 ): TSupportStatus[keyof TSupportStatus] {
-  // Browser version is sometimes '(not set)' in GA.
-  audienceVersion = audienceVersion === '(not set)' ? undefined : audienceVersion;
-
   audienceVersion = normalizeVersionNumber(audienceVersion);
   partiallySupportedInVersion = normalizeVersionNumber(partiallySupportedInVersion);
   supportedInVersion = normalizeVersionNumber(supportedInVersion);
